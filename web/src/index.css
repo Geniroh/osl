@@ -7,7 +7,7 @@
 *{
 	margin: 0;
 	padding: 0;
-	/* box-sizing: ; */
+	box-sizing: border-box;
 }
 
 body {
@@ -126,5 +126,9 @@ body {
 	background: #003580bd;
 	opacity: .85;
 	z-index: -1;
+}
+
+.antd-remove-border:first-child {
+   border: none; 
 }
 
