@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <>
-        <div className={`w-full h-[90px] md:h-[120px] flex items-center ${isSticky ? 'bg-[#232B38] fixed top-0 w-full' : 'bg-transparent'}`}>
+        <div className={`w-full h-[90px] md:h-[120px] flex items-center z-20 ${isSticky ? 'bg-[#232B38] fixed top-0 w-full' : 'bg-transparent'}`}>
             <div className="flex justify-between items-center w-full px-4 md:px-8">
                 <div>
                     <img src="/img/logo.png" alt="logo" className="w-[300px] md:w-[250px]" />
