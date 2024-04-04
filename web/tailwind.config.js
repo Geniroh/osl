@@ -8,7 +8,8 @@ export default {
     extend: {
       colors: {
         secondary: '#FFA903',
-        mydark: '#010D33'
+        mydark: '#010D33',
+        mypurple: '#57112F'
       }
     },
   },

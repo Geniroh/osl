@@ -1,41 +1,69 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
+import { Link } from 'react-router-dom';
+import BookingCalendarSwitch from './BookingCalendarSwitch';
 
-const backgrounds = ['img/logo.png', 'img/logo.png', 'image3.jpg'];
-const texts = ['Text 1', 'Text 2', 'Text 3'];
+const highlights = [
+    {
+        id: 1,
+        heading: "Unlock Your Ideal Space? It's Genius.",
+        subtile: "Get your ideas out – Checkout our cool spaces, birth the next best thing.",
+        background: "offer_img01.jpg"
+    },
+    {
+        id: 2,
+        heading: "Ideal Space With Class? It's Genius.",
+        subtile: "Get your ideas out – Checkout our cool spaces, birth the next best thing.",
+        background: "offer_img06.jpg"
+    },
+    {
+        id: 3,
+        heading: "Ideal Space with functionalities? It's Genius.",
+        subtile: "Get your ideas out – Checkout our cool spaces, birth the next best thing.",
+        background: "imgSpace4.jpg"
+    },
+    {
+        id:4,
+        heading: "Ideal Space With Add-ons? It's Genius.",
+        subtile: "Get your ideas out – Checkout our cool spaces, birth the next best thing.",
+        background: "img_ac.jpg"
+    }
+]
 
-const Hero = () => {
-    const [index, setIndex] = useState(0);
-    const [fadeIn, setFadeIn] = useState(false);
-  
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setFadeIn(true);
-        setIndex((prevIndex) => (prevIndex + 1) % backgrounds.length);
-        setTimeout(() => setFadeIn(false), 1000);
-      }, 2000);
-  
-      return () => clearTimeout(timer);
-    }, [index]);
+const HeroBg = () => {
+  const [index, setIndex] = useState(0);
+  const [fadeIn, setFadeIn] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFadeIn(true);
+      setIndex((prevIndex) => (prevIndex + 1) % highlights.length);
+      setTimeout(() => setFadeIn(false), 1000);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [index]);
+
   return (
     <div
-      className="h-screen transition-all duration-500 border border-red-600"
-      style={{
-        backgroundImage: `url('/${backgrounds[index]}')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
+      className="h-[85vh] md:h-[80vh] lg:h-screen transition-all fadeInUp duration-1000  slider-bg"
+      style={{ backgroundImage: `url('/img/${highlights[index].background}')`}}
     >
         <Navbar />
-        {/* <div className='bg-blue-600/60 absolute top-0 left-0 h-full w-full'></div> */}
-        <div
-            className={`text-white text-4xl font-bold ${!fadeIn && 'opacity-0'} ${fadeIn && 'opacity-100'}`}
-            style={{ transition: 'opacity 0.5s' }}
-        >
-            {texts[index]}
+
+        <div className="px-8 md:px-20 py-6 md:py-20">
+            <div className={` text-white opacity-0:${!fadeIn} opacity-100:${fadeIn} fadeInUp`}>
+                <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold max-w-[900px] opacity-0:${!fadeIn} opacity-100:${fadeIn}`} style={{ transition: 'opacity 0.2s' }}>{highlights[index].heading}</h2>
+                <p className={`text-md md:text-xl font-extralight text-[#EAE8E8] mt-4 mb-8 opacity-0:${!fadeIn} opacity-100:${fadeIn}`} style={{ transition: 'opacity 0.4s' }}>{highlights[index].subtile}</p>
+                <Link to="/" className={`px-4 py-3 md:px-6 md:py-4 text-[18px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg opacity-0:${!fadeIn} opacity-100:${fadeIn}`} style={{ transition: 'opacity 0.4s' }}>Check us out!</Link>
+            </div>
+
+            <div className='mt-20'>
+                <BookingCalendarSwitch />
+            </div>
         </div>
     </div>
-  )
-}
+  );
+};
 
-export default Hero
+export default HeroBg;

@@ -10,8 +10,14 @@
 	box-sizing: border-box;
 }
 
+::selection {
+    background-color: #FFA903;
+    color: #fff;
+}
+
 body {
-	font-family: 'Poppins', sans-serif;
+	/* font-family: 'Poppins', sans-serif; */
+    font-family: 'Barlow', sans-serif;
 	font-size: 16px;
 }
 
@@ -128,7 +134,119 @@ body {
 	z-index: -1;
 }
 
-.antd-remove-border:first-child {
-   border: none; 
+section {
+    margin-inline: auto;
+    width: 94%;
+    max-width: 1440px;
 }
+
+
+.destination-bg {
+	background-position: center;
+	background-size: cover;
+	position: relative;
+	/* z-index: 1; */
+}
+.destination-bg::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #571336;
+	opacity: .35;
+	/* z-index: -1; */
+}
+
+.fade-in-out {
+    animation: fadeInOut 4s infinite ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+
+  .customer-details-area {
+	padding: 35px 0 40px;
+}
+.customer-details-content {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.customer-details-content .icon {
+	margin-right: 25px;
+}
+.customer-details-content .content {
+	flex-grow: 1;
+}
+.booking-title {
+	font-size: 26px;
+	color: #571336;
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+.customer-progress-wrap {
+	position: relative;
+	padding: 16px 0 49px;
+}
+.customer-progress-wrap .progress {
+	height: 7px;
+	background-color: #ebebee;
+	border-radius: 0;
+}
+.customer-progress-wrap .progress .progress-bar {
+	background-color: #ffa903;
+}
+.customer-progress-step {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+.customer-progress-step ul {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.customer-progress-step ul li:nth-child(2) {
+	text-align: center;
+}
+.customer-progress-step ul li span {
+	width: 42px;
+	height: 42px;
+	flex: 0 0 42px;
+	background: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	border: 5px solid #ffa903;
+	font-size: 18px;
+	font-weight: 700;
+	color: #571336;
+	margin-bottom: 8px;
+}
+.customer-progress-step ul li p {
+	margin-bottom: 0;
+	color: #010D33;
+	font-weight: 500;
+}
+.customer-progress-step ul li:nth-child(2) span {
+	margin: 0 auto 8px;
+}
+.customer-progress-step ul li:last-child span {
+	margin-left: auto;
+}
+  
 

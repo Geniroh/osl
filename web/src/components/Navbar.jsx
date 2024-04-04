@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <>
-        <div className={`w-full h-[90px] md:h-[120px] flex items-center z-20 ${isSticky ? 'bg-[#232B38] fixed top-0 w-full' : 'bg-transparent'}`}>
+        <div className={`w-full h-[90px] md:h-[100px] flex items-center z-20 ${isSticky ? 'bg-[#232B38] fixed top-0 w-full' : 'bg-transparent'}`}>
             <div className="flex justify-between items-center w-full px-4 md:px-8">
                 <div>
                     <img src="/img/logo.png" alt="logo" className="w-[300px] md:w-[250px]" />
@@ -30,10 +30,10 @@ const Navbar = () => {
                 <div className="w-full flex justify-end">
                     <IoMenu color="#fff" className="text-white text-4xl cursor-pointer md:hidden" onClick={() => setIsOpen(!isOpen)} />
                     <ul className="list-none gap-6 items-center hidden md:flex justify-between min-w-[450px] font-[500]">
-                        <li className="text-white hover:text-secondary"><Link to="">Home</Link></li>
-                        <li className="text-white hover:text-secondary"><Link to="">About</Link></li>
-                        <li className="text-white hover:text-secondary"><Link to="">Contact</Link></li>
-                        <li className="px-4 py-3 bg-white text-[#2A2A2A] hover:bg-secondary cursor-pointer"><Link to="">Book Now!</Link></li>
+                        <li className="text-white hover:text-secondary"><Link to="/">Home</Link></li>
+                        <li className="text-white hover:text-secondary"><Link to="/about">About</Link></li>
+                        <li className="text-white hover:text-secondary"><Link to="/contact">Contact</Link></li>
+                        <li className="px-4 py-3 bg-white text-[#2A2A2A] hover:bg-secondary cursor-pointer"><Link to="/booking">Book Now!</Link></li>
                     </ul>
                 </div>
             </div>
@@ -53,13 +53,13 @@ const Navbar = () => {
                 <nav className="">
                     <ul>
                         <li className="border-t border-[#1F252E]/20 px-4 py-3">
-                            <Link to="" className="block  hover:text-secondary">Home</Link>
+                            <Link to="/" className="block  hover:text-secondary">Home</Link>
                         </li>
                         <li className="border-t border-[#1F252E]/20 px-4 py-3">
-                            <Link to="" className="block  hover:text-secondary">About</Link>
+                            <Link to="/about" className="block  hover:text-secondary">About</Link>
                         </li>
                         <li className="border-y border-[#1F252E]/20 px-4 py-3">
-                            <Link to="" className="block  hover:text-secondary">Contact</Link>
+                            <Link to="/contact" className="block  hover:text-secondary">Contact</Link>
                         </li>
                     </ul>
                 </nav>

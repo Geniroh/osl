@@ -1,0 +1,11 @@
+{
+  "name": "orchidsprings-backend",
+  "version": "2.0.0",
+  "description": "The orchid springs backend service",
+  "main": "index.js",
+  "author": "Irobuisi Chibuzor",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

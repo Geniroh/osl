@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { FaRegCalendarDays, FaRegCircleCheck } from "react-icons/fa6";
-import { IoChevronDownSharp } from "react-icons/io5";
-import { Select, Space } from 'antd';
-import CalendarPicker1 from './CalendarPicker1';
+import CalendarPicker3 from './CalendarPicker3';
 
 const BookingCalendarSwitch = () => {
     const [tab, setTab] = useState(1)
@@ -12,11 +10,11 @@ const BookingCalendarSwitch = () => {
       };
   return (
     <>
-        <div className='rounded-tr-3xl grid grid-cols-2 max-w-[500px] bg-white font-semibold'>
-            <span className={`p-3 md:py-4 text-center w-full cursor-pointer flex items-center gap-1 justify-center rounded-lt-3xl ${tab == 1 ? 'bg-white' : "bg-mydark text-white"}`} onClick={() => setTab(1)}><FaRegCalendarDays /> SPACE BOOKING</span>
-            <span className={`p-3 md:py-4 text-center w-full cursor-pointer flex items-center gap-1 justify-center rounded-tr-3xl ${tab == 2 ? 'bg-white' : "bg-mydark text-white"}`} onClick={() => setTab(2)}><FaRegCircleCheck /> RETRIEVE BOOKING</span>
+        <div className='rounded-3xl grid grid-cols-1 md:grid-cols-2 max-w-[500px] bg-white font-semibold shadow-2xl'>
+            <span className={`p-3 md:py-4 text-center w-full cursor-pointer flex items-center gap-1 rounded-tl-3xl rounded-tr-3xl md:rounded-tr-none justify-center  ${tab == 1 ? 'bg-white' : "bg-mydark text-white"}`} onClick={() => setTab(1)}><FaRegCalendarDays /> SPACE BOOKING</span>
+            <span className={`p-3 md:py-4 text-center w-full cursor-pointer flex items-center gap-1 justify-center md:rounded-tr-3xl ${tab == 2 ? 'bg-white' : "bg-mydark text-white"}`} onClick={() => setTab(2)}><FaRegCircleCheck /> RETRIEVE BOOKING</span>
         </div>
-        <div className=' bg-white w-full min-h-[300px] border border-red-700'>
+        <div className=' bg-white w-full min-h-[300px] rounded-bl-3xl rounded-br-3xl shadow-lg'>
             {
               (tab == 1) && (
                 <div className='p-5 md:p-10'>
@@ -30,22 +28,43 @@ const BookingCalendarSwitch = () => {
                         </div>
                     </div>
 
-                    <div className='w-full bg-[#F8F3E7] min-h-[100px] rounded-lg mt-5 px-4 grid grid-cols-1 md:grid-cols-2'>
-                        <div className='flex justify-start md:justify-end items-center'>
+                    <div className='w-full bg-[#F8F3E7] min-h-[100px] rounded-lg mt-5 px-4 py-4 grid grid-cols-1 md:grid-cols-2'>
+                        <div className='flex justify-center md:justify-end items-center  mt-5 md:mt-0'>
                             <div className='flex flex-col md:pr-4'>
                                 <label htmlFor="space_type" className='text-[#DAB191] text-[12px] pl-1'>Spaces</label>
-                                <select name="" id="space_type" defaultValue="single_spot" onChange={handleChange} className='bg-transparent border-0 md:min-w-[160px] outline-none text-[14px]'>
+                                <select name="" id="space_type" defaultValue="single_spot" onChange={handleChange} className='bg-transparent border-0 md:min-w-[160px] outline-none text-[14px] cursor-pointer'>
                                     <option value="conference_room" className='py-2'>Conference Room</option>
                                     <option value="single_spot">Single Spot</option>
                                 </select>
                             </div>
                         </div>
-                        <div className='flex items-center'>
-                            <CalendarPicker1 />
+                        <div className='flex items-center md:pl-5 mt-5 md:mt-0 '>
+                            <CalendarPicker3 />
                         </div>
+                    </div>
+
+                    <div className='flex justify-center mt-5 md:justify-end w-full'>
+                        <button className={`px-4 py-3 md:px-6 md:py-4 text-[14px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg`} >Select Spots</button>
                     </div>
                 </div>
               )
+            }
+
+            {
+                (tab == 2) && (
+                    <div className='p-5 md:p-10'>
+                    
+
+                        <div className='w-full bg-[#F8F3E7] min-h-[100px] rounded-lg mt-5 px-4 py-4 flex flex-col gap-2 text-[14px]'>
+                            <label htmlFor="">Enter Invoice</label>
+                            <input type="text" name="" id="" className='outline-none px-3 py-2 ' />
+                        </div>
+
+                        <div className='flex justify-center mt-5 md:justify-end w-full'>
+                            <button className={`px-4 py-3 md:px-6 md:py-4 text-[14px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg`} >Check Your Spot</button>
+                        </div>
+                </div>
+                )
             }
 
         </div>

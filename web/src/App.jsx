@@ -1,19 +1,23 @@
 import { ConfigProvider } from "antd"
+import { useEffect } from "react";
 import BaseRoutes from "./routes/BaseRoutes"
 
 function App() {
+
+  useEffect(() => {
+    const pageTitle = document.title;
+
+    return () => {
+      document.title = pageTitle; 
+    };
+  }, []);
 
   return (
     <ConfigProvider
       theme={{
         components: {
-          Select: {
-            // colorBgBase: 'red',
-            colorBgContainer: 'transparent',
-            borderRadius: 0,
-            controlOutline: 'none',
-            borderRadiusLG: 0,
-            zIndexBase: 0
+          Input: {
+            controlOutline: 'none'
           }
         }
       }}
