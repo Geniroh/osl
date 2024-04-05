@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
@@ -9,6 +9,10 @@ const { TextArea } = Input
 
 const Contact = () => {
     const [form] = Form.useForm()
+    
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
   return (
     <div>
         <div className='bg-[#19498C] min-h-[375px] '>

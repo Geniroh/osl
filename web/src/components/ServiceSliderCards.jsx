@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const ServiceSliderCards = () => {
-    const sliderRef = useRef();
+    const sliderRef = useRef(null);
     const [slidesToShow, setSlidesToShow] = useState(3);
     const [autoScrollInterval, setAutoScrollInterval] = useState(null);
 
@@ -74,11 +74,15 @@ const ServiceSliderCards = () => {
     };
 
     const goToPrev = () => {
-        sliderRef.current.slickPrev();
+        if (sliderRef.current) {
+            sliderRef.current.slickPrev();
+        }
     };
 
     const goToNext = () => {
-        sliderRef.current.slickNext();
+        if (sliderRef.current) {
+            sliderRef.current.slickNext();
+        }
     };
 
     const handleCardHover = () => {

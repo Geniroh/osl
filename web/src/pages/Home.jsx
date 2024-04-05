@@ -11,32 +11,31 @@ import { Row, Col } from "antd"
 import PromoCard from "../components/PromoCard"
 import Banner from "../components/Banner"
 import OslBanner from "../components/OslBanner"
-import Slider from "../components/ServiceCards"
 import ServiceSliderCards from "../components/ServiceSliderCards"
 import Footer from "../components/Footer"
 
-const cardData = [
-    {
-      title: 'Card 1',
-      description: 'Description for Card 1',
-      image: '/path/to/image1.jpg'
-    },
-    {
-      title: 'Card 2',
-      description: 'Description for Card 2',
-      image: '/path/to/image2.jpg'
-    },
-    {
-      title: 'Card 3',
-      description: 'Description for Card 3',
-      image: '/path/to/image3.jpg'
-    },
-    {
-      title: 'Card 4',
-      description: 'Description for Card 3',
-      image: '/path/to/image3.jpg'
-    }
-  ];
+// const cardData = [
+//     {
+//       title: 'Card 1',
+//       description: 'Description for Card 1',
+//       image: '/path/to/image1.jpg'
+//     },
+//     {
+//       title: 'Card 2',
+//       description: 'Description for Card 2',
+//       image: '/path/to/image2.jpg'
+//     },
+//     {
+//       title: 'Card 3',
+//       description: 'Description for Card 3',
+//       image: '/path/to/image3.jpg'
+//     },
+//     {
+//       title: 'Card 4',
+//       description: 'Description for Card 3',
+//       image: '/path/to/image3.jpg'
+//     }
+//   ];
 
 const Home = () => {
   const [loading, setLoading] = useState(true)
@@ -73,29 +72,29 @@ const Home = () => {
                         <span className="text-mydark font-bold text-3xl">Promo Deals</span>
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 items-center">
                         <span className="font-semibold">Best Price Guaranteed</span>
-                        <HiCheckCircle />
+                        <HiCheckCircle size={24} />
                     </div>
                 </div>
-                <Row className="mt-5" gutter={10}>
+                <Row className="mt-5" gutter={20}>
                     <Col xs={24} md={12}>
                         <PromoCard img={'/img/offer_img01.jpg'} title={'Conference Room'} type={'Weekly'} size={'large'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={1} />
                         
                     </Col>
                     <Col xs={24} md={12}>
-                        <Row gutter={10}>
-                            <Col xs={24} md={12}>
-                            <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
+                        <Row gutter={20}>
+                            <Col xs={24} md={12} className="mb-3">
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
+                            </Col>
+                            <Col xs={24} md={12} className="mb-3">
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
                             </Col>
                             <Col xs={24} md={12}>
-                            <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
                             </Col>
                             <Col xs={24} md={12}>
-                            <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
-                            </Col>
-                            <Col xs={24} md={12}>
-                            <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
                             </Col>
                         </Row>
                     </Col>
@@ -108,21 +107,6 @@ const Home = () => {
             </div>
 
             <section>
-                {/* <div className="flex justify-between items-center">
-                    <div className="flex flex-col">
-                        <span className="text-[#FDBB03] text-[14px] tracking-wider uppercase">WHY OSL SPACES</span>
-                        <span className="text-mydark font-bold text-3xl">Our Great Space Options</span>
-                    </div>
-
-                    <div className="flex gap-3">
-                        <span className="font-semibold">Best Price Guaranteed</span>
-                        <HiCheckCircle />
-                    </div>
-                </div>
-                <div>
-                    <Slider cards={cardData} />
-                </div> */}
-
                 <div className="mt-[100px]">
                     <ServiceSliderCards />
                 </div>

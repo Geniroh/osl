@@ -65,6 +65,21 @@ export const calculateDaysWithDatesArray = (start_date, end_date) => {
   return days;
 };
 
+// export const checkSelectedSpaces = (selectedDays, selectedSpaces) => {
+//   selectedDays.forEach(day => {
+//       const spaceFound = selectedSpaces.some(space => {
+//           // Assuming createdAt is the date associated with the space
+//           const spaceDate = new Date(space.day);
+//           return spaceDate.toDateString() === day.toDateString();
+//       });
+//       if (!spaceFound) {
+//           throw new Error(`Please select a space for ${day.toDateString()}`);
+//       }
+//   });
+//   console.log('All days have at least one selected space.');
+// };
+
+
 
 
 
