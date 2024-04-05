@@ -43,6 +43,7 @@ const Home = () => {
 
   useEffect(() => {
     document.title = "OSL Spaces | Home"
+    window.scrollTo(0, 0);
     setTimeout(() => {
       setLoading(false)
     }, 1000)

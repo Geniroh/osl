@@ -1,13 +1,28 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FaRegCalendarDays, FaRegCircleCheck } from "react-icons/fa6";
 import CalendarPicker3 from './CalendarPicker3';
+import { BookingContext } from '../context/BookingContext';
+import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const BookingCalendarSwitch = () => {
     const [tab, setTab] = useState(1)
+    const navigate = useNavigate()
+
+    const { setSpaceType, startDate, endDate } = useContext(BookingContext);
 
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
-      };
+        setSpaceType(value)
+    };
+
+    const handleSelectSpots = () => {
+        if(!startDate || !endDate) {
+            message.error("Please pick a start and end date to proceed!")
+        } else {
+            navigate("/booking")
+        }
+    }
+
   return (
     <>
         <div className='rounded-3xl grid grid-cols-1 md:grid-cols-2 max-w-[500px] bg-white font-semibold shadow-2xl'>
@@ -32,8 +47,8 @@ const BookingCalendarSwitch = () => {
                         <div className='flex justify-center md:justify-end items-center  mt-5 md:mt-0'>
                             <div className='flex flex-col md:pr-4'>
                                 <label htmlFor="space_type" className='text-[#DAB191] text-[12px] pl-1'>Spaces</label>
-                                <select name="" id="space_type" defaultValue="single_spot" onChange={handleChange} className='bg-transparent border-0 md:min-w-[160px] outline-none text-[14px] cursor-pointer'>
-                                    <option value="conference_room" className='py-2'>Conference Room</option>
+                                <select name="" id="space_type" defaultValue="single_spot" onChange={handleChange} className='bg-transparent border-0 md:min-w-[160px] outline-none text-[14px] md:text-[16px] cursor-pointer'>
+                                    <option value="conference_room" className='py-2 m-3'>Conference Room</option>
                                     <option value="single_spot">Single Spot</option>
                                 </select>
                             </div>
@@ -44,7 +59,7 @@ const BookingCalendarSwitch = () => {
                     </div>
 
                     <div className='flex justify-center mt-5 md:justify-end w-full'>
-                        <button className={`px-4 py-3 md:px-6 md:py-4 text-[14px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg`} >Select Spots</button>
+                        <button className={`px-4 py-3 md:px-6 md:py-4 text-[16px] font-semibold bg-secondary text-mydark hover:bg-mydark hover:text-white rounded-lg`} onClick={handleSelectSpots}>Select Spots</button>
                     </div>
                 </div>
               )
@@ -61,7 +76,7 @@ const BookingCalendarSwitch = () => {
                         </div>
 
                         <div className='flex justify-center mt-5 md:justify-end w-full'>
-                            <button className={`px-4 py-3 md:px-6 md:py-4 text-[14px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg`} >Check Your Spot</button>
+                            <button className={`px-4 py-3 md:px-6 md:py-4 text-[16px] font-semibold bg-secondary text-mydark hover:bg-mydark hover:text-white rounded-lg`} >Check Your Spot</button>
                         </div>
                 </div>
                 )
