@@ -12,7 +12,6 @@ import Slider from "react-slick";
 import { api } from '../api/api';
 import { resources } from '../api/resources';
 import SelectSpaceCard from '../components/Booking/SelectSpaceCard';
-import SelectSpaceCard2 from '../components/Booking/SelectSpaceCard2';
 import { BookingContext } from '../context/BookingContext';
 import CalendarPicker3 from '../components/CalendarPicker3';
 import dayjs from 'dayjs';
@@ -78,7 +77,7 @@ const Booking = () => {
 
   useEffect(() => {
     document.title = "OSL Spaces | Booking"
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     fetchData()
     checkIfDates()
   },[startDate, endDate])
@@ -97,7 +96,7 @@ const Booking = () => {
         </div>
 
         <div>
-            <ProgressBar />
+            <ProgressBar firstNum={1} firstText={'Space Selection'} secondNum={2} secondText="Guest Information" title="Please select a space" />
         </div>
 
         <div className='bg-[#FBF9F2] py-[100px]'>
@@ -110,7 +109,7 @@ const Booking = () => {
                         </div>
                     </Flex>
                 ) : (
-                    <SelectSpaceCard rooms={conferenceRooms} spaces={deskSpace}  />
+                    <SelectSpaceCard rooms={conferenceRooms} spaces={deskSpace} key={1} />
                 )
             }
             {/* <SelectSpaceCard2 /> */}

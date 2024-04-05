@@ -10,6 +10,8 @@ export const BookingProvider = ({ children }) => {
 
     const appendSelectedSpace = (space) => {
         const exists = selectedSpaces.includes(space)
+        console.log({exists, space})
+        // space.push(day)
         if(!exists) {
             setSelectedSpaces(prev => [...prev, space]);
         }

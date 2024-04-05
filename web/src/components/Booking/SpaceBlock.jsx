@@ -1,20 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { BookingContext } from '../../context/BookingContext'
 
-const SpaceBlock = ({space, type}) => {
+const SpaceBlock = ({space, type, day}) => {
     const [selected, setSelected] = useState(false);
 
     const { appendSelectedSpace } = useContext(BookingContext);
 
     const handleSelect = () => {
         setSelected(!selected)
-        if(selected) {
-            appendSelectedSpace(space)
+        if(!selected) {
+            console.log({space, day})
+            appendSelectedSpace({...space, day})
         }
     }
 
     useEffect(() => {
-        console.log("I ran")
+        
     },[])
 
   return (

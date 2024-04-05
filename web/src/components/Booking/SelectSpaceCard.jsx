@@ -4,7 +4,7 @@ import { CiUser } from "react-icons/ci";
 import { IoArrowBackOutline, IoArrowForward } from "react-icons/io5";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Col, Row, Space } from 'antd';
+import { Col, Row, Space, message } from 'antd';
 import { calculateDaysWithDatesArray } from '../../utils/function';
 import { BookingContext } from '../../context/BookingContext';
 import dayjs from 'dayjs';
@@ -12,7 +12,7 @@ import SpaceBlock from './SpaceBlock';
 
 
 const SelectSpaceCard = ({rooms, spaces}) => {
-    const { startDate, endDate } = useContext(BookingContext)
+    const { startDate, endDate, selectedSpaces } = useContext(BookingContext)
     const sliderRef = useRef();
     const [selectedDays, setSelectedDays] = useState([])
 
@@ -33,16 +33,34 @@ const SelectSpaceCard = ({rooms, spaces}) => {
         slidesToScroll: 1,
     };
 
+    const checkSelectedSpaces = (selectedDays, selectedSpaces) => {
+        selectedDays.forEach(day => {
+            const spaceFound = selectedSpaces.some(space => {
+                const spaceDate = new Date(space.day);
+                return spaceDate.toDateString() === day.toDateString();
+            });
+            if (!spaceFound) {
+                message.error(`Please select a space for ${day.toDateString()}`)
+                throw new Error(`Please select a space for ${day.toDateString()}`);
+            }
+        });
+        message.success("Success")
+      };
+
+    const handleProceed = () => {
+        try {
+            checkSelectedSpaces(selectedDays,selectedSpaces)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         if(startDate && endDate) {
             const days = calculateDaysWithDatesArray(startDate, endDate)
-            console.log({startDate, endDate})
             setSelectedDays(days)
-
-            console.log({days})
         }
-        console.log({rooms, spaces})
-    }, [startDate, endDate]);
+    }, [startDate, endDate, selectedSpaces]);
 
   return (
     <>
@@ -72,7 +90,7 @@ const SelectSpaceCard = ({rooms, spaces}) => {
 
                             {
                                 selectedDays.length < 2 ? (
-                                    <Space className='w-full' >
+                                    <Space className='w-full' key={1000}>
                                         <Row gutter={10}>
                                             <Col span={14} className=''>
                                                 <div className='text-xl font-semibold leading-8 flex flex-col'>
@@ -100,14 +118,14 @@ const SelectSpaceCard = ({rooms, spaces}) => {
                                                         <div className="grid grid-cols-4 gap-3">
                                                             {
                                                                 spaces.map((space) => (
-                                                                    <SpaceBlock space={space} key={space._id} type='space' />
+                                                                    <SpaceBlock space={space} key={space._id} type='space' day={selectedDays[0]} />
                                                                 ))
                                                             }
                                                         </div>
                                                         <div className="mt-3 gap-3 grid grid-cols-4">
                                                             {
                                                                 rooms.map((space) => (
-                                                                    <div className='col-span-2 w-full'>
+                                                                    <div className='col-span-2 w-full' key={space._id}>
                                                                         <SpaceBlock space={space} key={space._id} type='room' />
                                                                     </div>
                                                                 ))
@@ -166,15 +184,15 @@ const SelectSpaceCard = ({rooms, spaces}) => {
                                                                     <div className="grid grid-cols-4 gap-3">
                                                                         {
                                                                             spaces.map((space) => (
-                                                                                <SpaceBlock space={space} key={space._id} type='space' />
+                                                                                <SpaceBlock space={space} key={space._id} type='space' day={day} />
                                                                             ))
                                                                         }
                                                                     </div>
                                                                     <div className="mt-3 grid grid-cols-4 gap-3">
                                                                         {
                                                                             rooms.map((space) => (
-                                                                                <div className='col-span-2 w-full'>
-                                                                                    <SpaceBlock space={space} key={space._id} type='room' />
+                                                                                <div className='col-span-2 w-full' key={space._id}>
+                                                                                    <SpaceBlock space={space} key={space._id} type='room' day={day} />
                                                                                 </div>
                                                                             ))
                                                                         }
@@ -211,6 +229,9 @@ const SelectSpaceCard = ({rooms, spaces}) => {
 
                     
 
+                <button className='w-full bg-secondary text-mydark py-3 font-semibold rounded-b-lg' onClick={handleProceed}>
+                            Proceed
+                </button>
                 </div>
             </section>
         }

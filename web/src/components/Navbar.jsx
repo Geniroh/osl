@@ -1,13 +1,18 @@
 import { useEffect, useState, useRef } from "react";
 import { IoMenu } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
     const [isSticky, setIsSticky] = useState(false);
+    const [activePage, setActivePage] = useState("/")
     const [isOpen, setIsOpen] = useState(false);
     const sidebarRef = useRef(null);
+    const location = useLocation();
 
     useEffect(() => {
+        setActivePage(location.pathname)
+
+        // console.log((activePage != '/booking'))
         const handleScroll = () => {
             const offset = 200;
             setIsSticky(window.scrollY > offset);
@@ -18,7 +23,7 @@ const Navbar = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [location]);
 
   return (
     <>
@@ -29,11 +34,15 @@ const Navbar = () => {
                 </div>
                 <div className="w-full flex justify-end">
                     <IoMenu color="#fff" className="text-white text-4xl cursor-pointer md:hidden" onClick={() => setIsOpen(!isOpen)} />
-                    <ul className="list-none gap-6 items-center hidden md:flex justify-between min-w-[450px] font-[500]">
-                        <li className="text-white hover:text-secondary"><Link to="/">Home</Link></li>
-                        <li className="text-white hover:text-secondary"><Link to="/about">About</Link></li>
-                        <li className="text-white hover:text-secondary"><Link to="/contact">Contact</Link></li>
-                        <li className="px-4 py-3 bg-white text-[#2A2A2A] hover:bg-secondary cursor-pointer"><Link to="/booking">Book Now!</Link></li>
+                    <ul className="list-none gap-12 items-center hidden md:flex justify-between font-[500]">
+                        <li className={`${activePage == '/' ? 'text-secondary': 'text-white'} hover:text-secondary`}><Link to="/">Home</Link></li>
+                        <li  className={`${activePage == '/about' ? 'text-secondary': 'text-white'} hover:text-secondary`}><Link to="/about">About</Link></li>
+                        <li  className={`${activePage == '/contact' ? 'text-secondary': 'text-white'} hover:text-secondary`}><Link to="/contact">Contact</Link></li>
+                        {
+                            (activePage != '/booking' && activePage !='/booking-details') &&
+
+                            <li className="px-4 py-3 bg-white text-[#2A2A2A] hover:bg-secondary cursor-pointer"><Link to="/booking">Book Now!</Link></li>
+                        }
                     </ul>
                 </div>
             </div>

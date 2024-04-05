@@ -1,8 +1,6 @@
 import React from 'react'
-import IconCard from './IconCard'
 import { BsFillPeopleFill } from "react-icons/bs";
 import { TbWorld } from "react-icons/tb";
-import { Col, Row, Space } from 'antd';
 import { Link } from 'react-router-dom';
 
 const Banner = () => {
@@ -26,8 +24,8 @@ const Banner = () => {
                 </div>
                 <div className='rounded-2xl bg-white p-5 flex gap-3 items-center justify-between max-w-[300px] w-full'>
                     <div className='flex flex-col text-3xl'>
-                        <span className='font-bold'>24+</span>
-                        <span className='text-sm'>Happy Customers</span>
+                        <span className='font-bold'>100%</span>
+                        <span className='text-sm'>CLients Satisfied</span>
                     </div>
                     <TbWorld className='text-5xl' />
                 </div>

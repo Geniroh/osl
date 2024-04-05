@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import { Col, Row } from 'antd'
 import { FaCircleCheck } from "react-icons/fa6";
@@ -8,6 +8,10 @@ import MyAccordion from '../components/MyAccordion';
 import Footer from '../components/Footer';
 
 const About = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
   return (
     <div>
 
