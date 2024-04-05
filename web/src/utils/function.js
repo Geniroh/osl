@@ -41,3 +41,30 @@ export const validatePhoneNumber = (rule, value, callback) => {
       callback('Please enter a valid phone number');
     }
 };
+
+export const calculateDaysWithDatesArray = (start_date, end_date) => {
+  const startDateObj = dayjs(start_date);
+  const endDateObj = dayjs(end_date);
+
+  if (!startDateObj.isValid() || !endDateObj.isValid()) {
+      throw new Error('Invalid date format');
+  }
+
+  if (startDateObj.isSame(endDateObj, 'day')) {
+      return [startDateObj.toDate()];
+  }
+
+  const days = [];
+  let currentDate = startDateObj;
+
+  while (currentDate <= endDateObj.add(1, 'day')) {
+      days.push(currentDate.toDate());
+      currentDate = currentDate.add(1, 'day');
+  }
+
+  return days;
+};
+
+
+
+
