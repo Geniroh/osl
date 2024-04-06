@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar';
 import ProgressBar from '../components/ProgressBar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
+import BookingDetailsForm from '../components/Booking/BookingDetailsForm';
 
 const BookingDetails = () => {
+    useEffect(() => {
+        document.title = "OSL Spaces | Booking Details"
+        window.scrollTo(0, 0);
+    }, [])
   return (
     <div>
         <div className='bg-[#19498C] min-h-[375px] '>
@@ -24,7 +29,7 @@ const BookingDetails = () => {
         </div>
 
         <div className='bg-[#FBF9F2] py-[100px]'>
-          
+          <BookingDetailsForm />
         </div>
 
 
