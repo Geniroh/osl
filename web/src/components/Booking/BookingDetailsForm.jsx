@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CiUser } from "react-icons/ci";
 import { Form, Row, Col, Input, Select, message } from 'antd';
 import { LuUserCircle2 } from "react-icons/lu";
@@ -9,13 +9,17 @@ import { TbWorld } from "react-icons/tb";
 import { validateEmail, validatePhoneNumber } from '../../utils/function';
 import { api } from '../../api/api';
 import { resources } from '../../api/resources';
-import { BookingContext } from '../../context/BookingContext'
+import { BookingContext } from '../../context/BookingContext';
+import { useNavigate } from 'react-router-dom';
 
 const BookingDetailsForm = () => {
     const [form] = Form.useForm()
-    const { spaceForReservation } = useContext(BookingContext)
+    const { spaceForReservation, setPaymentDetails } = useContext(BookingContext)
+    const [btnLoading, setBtnLoading] = useState(false);
+    const navigate = useNavigate()
 
     const handleProceedToPayment = async () => {
+        setBtnLoading(true)
         try {
             const values = await form.validateFields()
 
@@ -25,17 +29,22 @@ const BookingDetailsForm = () => {
             }
 
             const { data } = await api.post(resources.reservationCostUrl, payload)
-            console.log({ values, data })
-            console.log(payload)
+            if(data) {
+                setPaymentDetails(data)
+                // console.log(data)
+                navigate("/payment-details")
+            }
+
         } catch (error) {
             console.log(error)
             message.error("Please there was an error proceeding. Try again!")
         }
+        setBtnLoading(false)
     }
 
     useEffect(() => {
         // Handle a situation where the space has been lost in state
-        console.log(spaceForReservation)
+        // console.log(spaceForReservation)
     }, [])
    
   return (
@@ -63,7 +72,7 @@ const BookingDetailsForm = () => {
                                 <Select
                                     className='rounded-none w-full placeholder:text-gray-400 placeholder:text-[17px] placeholder:font-semibold'
                                     size='large'
-                                    placeholder="Mr"
+                                    placeholder="Title"
                                     // defaultValue="Mr"
                                     options={[
                                     { value: 'Mr', label: 'Mr' },
@@ -124,7 +133,8 @@ const BookingDetailsForm = () => {
                                 <Select
                                     className='rounded-none w-full placeholder:text-gray-400 placeholder:text-[17px] placeholder:font-semibold'
                                     size='large'
-                                    defaultValue="Nigeria"
+                                    // defaultValue="Nigeria"
+                                    placeholder="Country"
                                     options={[
                                     { value: 'Nigeria', label: 'Nigeria' },
                                     { value: 'USA', label: 'United States' },
@@ -178,8 +188,8 @@ const BookingDetailsForm = () => {
 
                 
 
-            <button className='w-full bg-secondary text-mydark py-3 font-semibold rounded-b-lg' onClick={handleProceedToPayment}>
-                Proceed to Payment
+            <button className={`w-full bg-secondary text-mydark py-3 font-semibold rounded-b-lg ${btnLoading && 'cursor-not-allowed'}`} onClick={handleProceedToPayment} disabled={btnLoading}>
+                {btnLoading ? 'Loading please wait...' : 'Proceed to Payment'}
             </button>
             </div>
         </section>

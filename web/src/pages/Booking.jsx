@@ -34,9 +34,13 @@ const Booking = () => {
         if(!startDate || !endDate) {
             setSelectDatesModal(true)
             return
-        } 
+        } else if(endDate && selectDatesModal) {
+            return
+        } else {
 
-        message.success(`You are booking for ${dayjs(startDate).format('MMM D, YYYY') + " to " + dayjs(endDate).format('MMM D, YYYY')}`, 4)
+            message.success(`You are booking for ${dayjs(startDate).format('MMM D, YYYY') + " to " + dayjs(endDate).format('MMM D, YYYY')}`, 4)
+        }
+
     }
 
     const handleOk = () => {
@@ -84,7 +88,7 @@ const Booking = () => {
     window.scrollTo(0, 0);
     fetchData()
     checkIfDates()
-  },[startDate, endDate])
+  },[endDate])
   return (
     <div>
         <div className='bg-[#19498C] min-h-[375px] '>

@@ -248,11 +248,15 @@ const SelectSpaceCard = ({rooms, spaces, pcode}) => {
                     </div>
 
                     
-
+{/* 
                 <button className='w-full bg-secondary text-mydark py-3 font-semibold rounded-b-lg flex gap-1 items-center justify-center' onClick={handleProceed} disabled={btnLoading}>
                             Proceed {btnLoading && <div className="border-[2px] border-white border-t-2 border-t-primary rounded-full w-[9px] h-[9px] animate-spin">
                                 </div> }
-                </button>
+                </button> */}
+
+                 <button className={`w-full bg-secondary text-mydark py-3 font-semibold rounded-b-lg ${btnLoading && 'cursor-not-allowed'}`} onClick={handleProceed} disabled={btnLoading}>
+                {btnLoading ? 'Loading please wait...' : 'Proceed to Payment'}
+            </button>
                 </div>
             </section>
         }

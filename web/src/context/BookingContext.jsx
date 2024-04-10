@@ -8,6 +8,7 @@ export const BookingProvider = ({ children }) => {
     const [spaceType, setSpaceType] = useState('single_spot');
     const [selectedSpaces, setSelectedSpaces] = useState([]);
     const [spaceForReservation, setSpaceForReservation] = useState([])
+    const [paymentDetails, setPaymentDetails] = useState(null)
 
     const appendSelectedSpace = (space) => {
         const exists = selectedSpaces.includes(space)
@@ -37,6 +38,8 @@ export const BookingProvider = ({ children }) => {
         removeSelectedSpace,
         spaceForReservation,
         setSpaceForReservation,
+        paymentDetails,
+        setPaymentDetails,
     };
 
     return (

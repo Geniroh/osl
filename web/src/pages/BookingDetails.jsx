@@ -1,14 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import Navbar from '../components/Navbar';
 import ProgressBar from '../components/ProgressBar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import BookingDetailsForm from '../components/Booking/BookingDetailsForm';
+import { BookingContext } from '../context/BookingContext';
+import { useNavigate } from 'react-router-dom';
+import { message } from 'antd'
 
 const BookingDetails = () => {
+    const { spaceForReservation } = useContext(BookingContext);
+    const navigate = useNavigate()
+
     useEffect(() => {
         document.title = "OSL Spaces | Booking Details"
         window.scrollTo(0, 0);
+
+        if(spaceForReservation.length < 1) {
+            navigate("/booking", {replace: true});
+            message.error("Please try booking again")
+        }
     }, [])
   return (
     <div>
