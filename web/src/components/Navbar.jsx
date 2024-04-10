@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
+// import { BookingContext } from "../context/BookingContext";
 
 const Navbar = () => {
     const [isSticky, setIsSticky] = useState(false);
@@ -8,11 +9,24 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const sidebarRef = useRef(null);
     const location = useLocation();
+    // const navigate = useNavigate();
+    // const {setEndDate} = useContext(BookingContext);
+
+    // const handleBookNow = () => {
+    //     try {
+            
+    //         setEndDate(new Date())
+    //         navigate("/booking", {replace: true})
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+
+
 
     useEffect(() => {
         setActivePage(location.pathname)
 
-        // console.log((activePage != '/booking'))
         const handleScroll = () => {
             const offset = 200;
             setIsSticky(window.scrollY > offset);
@@ -30,7 +44,9 @@ const Navbar = () => {
         <div className={`w-full h-[90px] md:h-[100px] flex items-center z-20 ${isSticky ? 'bg-[#232B38] fixed top-0 w-full' : 'bg-transparent'}`}>
             <div className="flex justify-between items-center w-full px-4 md:px-8">
                 <div>
-                    <img src="/img/logo.png" alt="logo" className="w-[300px] md:w-[250px]" />
+                    <Link to='/' replace>
+                        <img src="/img/logo.png" alt="logo" className="w-[300px] md:w-[250px]" />
+                    </Link>
                 </div>
                 <div className="w-full flex justify-end">
                     <IoMenu color="#fff" className="text-white text-4xl cursor-pointer md:hidden" onClick={() => setIsOpen(!isOpen)} />
@@ -39,9 +55,10 @@ const Navbar = () => {
                         <li  className={`${activePage == '/about' ? 'text-secondary': 'text-white'} hover:text-secondary`}><Link to="/about">About</Link></li>
                         <li  className={`${activePage == '/contact' ? 'text-secondary': 'text-white'} hover:text-secondary`}><Link to="/contact">Contact</Link></li>
                         {
-                            (activePage != '/booking' && activePage !='/booking-details') &&
+                            (activePage == '/' || activePage =='/about' || activePage =='/contact') &&
 
-                            <li className="px-4 py-3 bg-white text-[#2A2A2A] hover:bg-secondary cursor-pointer"><Link to="/booking">Book Now!</Link></li>
+                            // <button onClick={handleBookNow}><li className="px-4 py-3 bg-white text-[#2A2A2A] hover:bg-secondary cursor-pointer">Book Now!</li></button>
+                            <Link to="/booking"><li className="px-4 py-3 bg-white text-[#2A2A2A] hover:bg-secondary cursor-pointer">Book Now!</li></Link>
                         }
                     </ul>
                 </div>

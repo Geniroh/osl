@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import BookingCalendarSwitch from './BookingCalendarSwitch';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const highlights = [
     {
@@ -54,21 +55,29 @@ const HeroBg = () => {
       style={{ backgroundImage: `url('/img/${highlights[index].background}')`}}
     >
         <Navbar />
-
         <div className="px-8 md:px-20 py-6 md:py-20">
-            <div className={` text-white transition-all duration-1000 translate-y-0 opacity-100 ${ fadeIn && 'translate-y-2 opacity-0'}`} >
-
-                <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold max-w-[900px] `} style={{ transition: 'opacity 0.2s' }}>{highlights[index].heading}</h2>
-                <p className={`text-md md:text-xl font-extralight text-[#EAE8E8] mt-4 mb-8 opacity-0:${!fadeIn} opacity-100:${fadeIn}`} >{highlights[index].subtile}</p>
-                <Link to="/" className={`px-4 py-3 md:px-6 md:py-4 text-[18px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg opacity-0:${!fadeIn} opacity-100:${fadeIn}`} style={{ transition: 'opacity 0.4s' }}>Check us out!</Link>
+            <div className={` text-white transition-all duration-1000`} >
+              <AnimatePresence initial={false}>
+                <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: '50%' }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1}}
+                >
+                  <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold max-w-[900px] `}>{highlights[index].heading}</h2>
+                  <p className={`text-md md:text-xl font-extralight text-[#EAE8E8] mt-3 mb-8 `} >{highlights[index].subtile}</p>
+                  <Link to="/" className={`px-4 py-3 md:px-6 md:py-4 text-[18px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg `}>Check us out!</Link>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            <div className='mt-20'>
+            <div className='mt-32'>
                 <BookingCalendarSwitch />
             </div>
         </div>
+
     </div>
   );
 };
 
-export default HeroBg;
+export default HeroBg

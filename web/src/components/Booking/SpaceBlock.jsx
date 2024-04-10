@@ -1,16 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { BookingContext } from '../../context/BookingContext'
+import { message } from 'antd'
+import dayjs from 'dayjs';
 
 const SpaceBlock = ({space, type, day}) => {
     const [selected, setSelected] = useState(false);
 
-    const { appendSelectedSpace } = useContext(BookingContext);
+    const { appendSelectedSpace, removeSelectedSpace } = useContext(BookingContext);
 
     const handleSelect = () => {
         setSelected(!selected)
         if(!selected) {
-            console.log({space, day})
             appendSelectedSpace({...space, day})
+            const msg = type == 'room' ? `${space?.name} selected for ${dayjs(day).format('MMMM D, YYYY')}` : `Seat ${space?.seat_number} selected for ${dayjs(day).format('MMMM D, YYYY')}`
+            message.success(msg)
+        } else {
+            removeSelectedSpace(space._id)
+            const msg = type == 'room' ? `${space?.name} unselected for ${dayjs(day).format('MMMM D, YYYY')}` : `Seat ${space?.seat_number} unselected for ${dayjs(day).format('MMMM D, YYYY')}`
+            message.info(msg)
         }
     }
 

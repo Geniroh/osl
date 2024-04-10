@@ -32,7 +32,7 @@ app.use(compression());
 
 
 
-app.get('/api',(req,res) => res.render('welcome',{ title: "API" }))
+app.get('/api', (req,res) => { res.send("Hello from API")})
 app.use('/api/space', officeSpaceRoutes);
 app.use('/api/reservation', reservationRoutes);
 app.use('/api/people', peopleRoutes);

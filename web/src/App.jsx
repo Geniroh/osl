@@ -18,11 +18,19 @@ function App() {
         theme={{
           components: {
             Input: {
-              controlOutline: 'none'
+              controlOutline: 'none',
+              colorPrimary: '#FFA903'
             },
             Spin: {
               colorPrimary: '#FFA903'
-            }
+            },
+            Select: {
+              borderRadius: 0,
+              controlOutline: 'none',
+              borderRadiusLG: 0,
+              borderRadiusOuter: 0,
+              colorPrimary: '#FFA903',
+            },
           }
         }}
       >

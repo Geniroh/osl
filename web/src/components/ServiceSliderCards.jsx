@@ -109,7 +109,7 @@ const ServiceSliderCards = () => {
 
             <section className="mt-5 mb-10">
                     <Slider ref={sliderRef} {...sliderSettings}>
-                        <div className="rounded-md bg-white shadow-lg px-6 py-5 md:px-8 md:py-8 max-w-[350px]"  onMouseEnter={handleCardHover}>
+                        <div className="rounded-md bg-white shadow-lg px-6 py-5 md:px-8 md:py-8 max-w-[350px] mx-2 min-h-[300px]"  onMouseEnter={handleCardHover}>
                             <h3 className='text-[#571336] text-2xl font-semibold mb-3 '>Loyalty Tickets</h3>
                             <ul className='list-none'>
                                 <li className='w-full flex justify-between items-center text-md leading-8 text-gray-400'><span>Enjoy Top Deals</span> <CgCheck className='text-[#571336] font-semibold text-3xl' /></li>
@@ -118,7 +118,7 @@ const ServiceSliderCards = () => {
                             </ul>
                         </div>
 
-                        <div className="rounded-md bg-white shadow-md px-6 py-5 md:px-8 md:py-8 max-w-[350px] "  onMouseEnter={handleCardHover}>
+                        <div className="rounded-md bg-white shadow-md px-6 py-5 md:px-8 md:py-8 max-w-[350px] mx-2 min-h-[300px]"  onMouseEnter={handleCardHover}>
                             <h3 className='text-[#571336] text-2xl font-semibold mb-3 '>Pre-Book Your Space</h3>
                             <ul className='list-none'>
                                 <li className='w-full flex justify-between items-center text-md leading-8 text-gray-400'><span>Enjoy workspace add-ons</span> <CgCheck className='text-[#571336] font-semibold text-3xl' /></li>
@@ -127,7 +127,7 @@ const ServiceSliderCards = () => {
                             </ul>
                         </div>
 
-                        <div className="rounded-md bg-white shadow-md px-6 py-5 md:px-8 md:py-8 max-w-[350px]"  onMouseEnter={handleCardHover}>
+                        <div className="rounded-md bg-white shadow-md px-6 py-5 md:px-8 md:py-8 max-w-[350px] mx-2 min-h-[300px]"  onMouseEnter={handleCardHover}>
                             <h3 className='text-[#571336] text-2xl font-semibold mb-3 '>Reserve preferred seat!</h3>
                             <ul className='list-none'>
                                 <li className='w-full flex justify-between items-center text-md leading-8 text-gray-400'><span>What will it be, window or aisle</span> <CgCheck className='text-[#571336] font-semibold text-3xl' /></li>
@@ -136,7 +136,7 @@ const ServiceSliderCards = () => {
                             </ul>
                         </div>
 
-                        <div className="rounded-md bg-white shadow-md px-6 py-5 md:px-8 md:py-8 max-w-[350px] mx-2">
+                        <div className="rounded-md bg-white shadow-md px-6 py-5 md:px-8 md:py-8 max-w-[350px] mx-2  min-h-[300px]">
                             <h3 className='text-[#571336] text-2xl font-semibold mb-3 '>Enjoy stress-free Work</h3>
                             <ul className='list-none'>
                                 <li className='w-full flex justify-between items-center text-md leading-8 text-gray-400'><span>Work stress-free</span> <CgCheck className='text-[#571336] font-semibold text-3xl' /></li>

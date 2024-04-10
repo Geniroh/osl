@@ -12,7 +12,7 @@ const ProgressBar = ({ firstNum, firstText, secondNum, secondText, title}) => {
                         <div className="bg-[#FFA903] h-full rounded-full" style={{ width: '50%' }} role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
-                    <div className="absolute left-0 top-[15px] w-full flex justify-between">
+                    <div className="absolute left-0 top-0 md:top-[15px] w-full flex justify-between">
                         <ul className="flex items-center justify-between w-full">
                             <li className="text-center">
                                 <span className="w-10 h-10 bg-white flex items-center justify-center rounded-full border-4 border-[#FFA903] text-xl font-semibold text-mydark mb-2 md:mb-0">{firstNum}</span>

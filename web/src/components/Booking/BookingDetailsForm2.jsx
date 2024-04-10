@@ -1,42 +1,14 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import { CiUser } from "react-icons/ci";
-import { Form, Row, Col, Input, Select, message } from 'antd';
+import { Form, Row, Col, Input, Select, Flex } from 'antd';
 import { LuUserCircle2 } from "react-icons/lu";
 import { MdAlternateEmail, MdPhoneInTalk } from "react-icons/md";
 import { FaHouseUser } from "react-icons/fa";
 import { BiMaleFemale } from "react-icons/bi";
 import { TbWorld } from "react-icons/tb";
 import { validateEmail, validatePhoneNumber } from '../../utils/function';
-import { api } from '../../api/api';
-import { resources } from '../../api/resources';
-import { BookingContext } from '../../context/BookingContext'
 
-const BookingDetailsForm = () => {
-    const [form] = Form.useForm()
-    const { spaceForReservation } = useContext(BookingContext)
-
-    const handleProceedToPayment = async () => {
-        try {
-            const values = await form.validateFields()
-
-            const payload = {
-                ...values,
-                reservation_id: spaceForReservation,
-            }
-
-            const { data } = await api.post(resources.reservationCostUrl, payload)
-            console.log({ values, data })
-            console.log(payload)
-        } catch (error) {
-            console.log(error)
-            message.error("Please there was an error proceeding. Try again!")
-        }
-    }
-
-    useEffect(() => {
-        // Handle a situation where the space has been lost in state
-        console.log(spaceForReservation)
-    }, [])
+const BookingDetailsForm2 = () => {
    
   return (
     <div>
@@ -49,8 +21,6 @@ const BookingDetailsForm = () => {
                 <Form
                     className='md:px-10 md:py-10 p-5'
                     layout='vertical'
-                    form={form}
-                    onFinishFailed={() => message.error("Please fill in all required fields")}
                 >
                     <Row gutter={10} className=''>
                         <Col xs={24} md={5} className='flex gap-3'>
@@ -64,7 +34,7 @@ const BookingDetailsForm = () => {
                                     className='rounded-none w-full placeholder:text-gray-400 placeholder:text-[17px] placeholder:font-semibold'
                                     size='large'
                                     placeholder="Mr"
-                                    // defaultValue="Mr"
+                                    defaultValue="Mr"
                                     options={[
                                     { value: 'Mr', label: 'Mr' },
                                     { value: 'Mrs', label: 'Mrs' },
@@ -117,7 +87,7 @@ const BookingDetailsForm = () => {
                         <Col xs={24} md={12} className='flex gap-2'>
                             <TbWorld size={38} className='text-mypurple mt-1 hidden md:block' />
                             <Form.Item 
-                                name="country"
+                                name="nationality"
                                 className='w-full h-full'
                                 rules={[{ required: true }]}
                             >
@@ -154,7 +124,7 @@ const BookingDetailsForm = () => {
                         <Col xs={24} md={12} className='flex gap-2'>
                             <MdPhoneInTalk size={38} className='text-mypurple mt-1 hidden md:block' />
                              <Form.Item 
-                                name="phoneNumber"
+                                name="mobile"
                                 className='w-full'
                                 rules={[{ required: true, message: "Please provide your email" }, {validator: validatePhoneNumber}]}
                             >
@@ -178,7 +148,7 @@ const BookingDetailsForm = () => {
 
                 
 
-            <button className='w-full bg-secondary text-mydark py-3 font-semibold rounded-b-lg' onClick={handleProceedToPayment}>
+            <button className='w-full bg-secondary text-mydark py-3 font-semibold rounded-b-lg'>
                 Proceed to Payment
             </button>
             </div>
@@ -187,4 +157,4 @@ const BookingDetailsForm = () => {
   )
 }
 
-export default BookingDetailsForm
+export default BookingDetailsForm2

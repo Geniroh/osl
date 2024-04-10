@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, memo } from 'react'
 import { FaRegCalendarDays, FaRegCircleCheck } from "react-icons/fa6";
 import CalendarPicker3 from './CalendarPicker3';
 import { BookingContext } from '../context/BookingContext';
@@ -37,7 +37,7 @@ const BookingCalendarSwitch = () => {
                         <div className='flex justify-between font-semibold items-end'>
                             <span className='border-r-[2px] border-black pr-2 mr-2'> Spaces</span>
                             <span className='flex flex-col'>
-                            <span className='text-[#DAB191] flex text-[12px] font-extralight'>Just from ₦3000</span>
+                            <span className='text-[#DAB191] flex text-[12px] font-semibold'>Just from ₦3000</span>
                                 <span>Book Here</span>
                             </span>
                         </div>

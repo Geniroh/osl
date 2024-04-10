@@ -5,10 +5,10 @@ import "flatpickr/dist/themes/airbnb.css";
 import { BookingContext } from '../context/BookingContext';
 
 const CalendarPicker3 = () => {
-    const { setStartDate, setEndDate, startDate } = useContext(BookingContext);
+    const { setStartDate, setEndDate, startDate, endDate } = useContext(BookingContext);
 
     const [selectedStartDate, setSelectedStartDate] = useState(startDate || new Date());
-    const [selectedEndDate, setSelectedEndDate] = useState(null);
+    const [selectedEndDate, setSelectedEndDate] = useState();
 
     const handleselectedStartDateChange = (selectedDates) => {
         const selectedDate = selectedDates[0];
@@ -24,10 +24,11 @@ const CalendarPicker3 = () => {
 
     useEffect(() => {
         setStartDate(selectedStartDate)
+        // setEndDate(selectedEndDate)
     })
 
     return (
-        <div className='flex items-end flex-wrap justify-center md:justify-start'>
+        <div className='flex items-end flex-wrap justify-between md:justify-start w-full'>
             <div className='flex flex-col '>
                 <span className='text-[#DAB191] text-[12px]'>Start Date</span>
                 <Flatpickr 
@@ -47,7 +48,7 @@ const CalendarPicker3 = () => {
             <div className='flex flex-col md:mt-0'>
                 <span className='text-[#DAB191] text-[12px]'>End Date</span>
                 <Flatpickr 
-                    // value={selectedStartDate}
+                    // value={selectedEndDate}
                     options={{
                         altInput: true,
                         altFormat: "F j, Y",

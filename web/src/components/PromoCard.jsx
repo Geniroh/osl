@@ -5,11 +5,11 @@ const PromoCard = ({ size, img, startDate, endDate, type, price, title }) => {
 
   return (
     <div 
-      className={`relative rounded-2xl w-full bg-white shadow-2xl ${ size == 'small' ? 'p-3' : 'h-full'}`}
+      className={`relative rounded-2xl w-full bg-white shadow-2xl mb-5 md:mb-0 ${ size == 'small' ? 'p-3' : 'md:h-full'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img src={img} alt="" className={`${size === 'large' ? 'h-[450px]  rounded-tl-2xl rounded-tr-2xl': 'h-[140px] rounded-lg'} w-full `} />
+      <img src={img} alt="" className={`${size === 'large' ? 'h-[250px] md:h-[450px]  rounded-tl-2xl rounded-tr-2xl': 'h-[140px] rounded-lg'} w-full `} />
       {isHovered && (
         <div className="absolute inset-0 flex items-center justify-center bg-mydark rounded-2xl">
             <div>

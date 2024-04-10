@@ -4,19 +4,18 @@ import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import { Row, Col, Form, Input, Modal, message, Flex, Spin } from 'antd';
 import { validateEmail, validatePhoneNumber } from '../utils/function';
-import Test2 from '../components/test2';
+// import Test2 from '../components/test2';
 import ProgressBar from '../components/ProgressBar';
-import { IoArrowBackOutline, IoArrowForward } from "react-icons/io5";
-import { CiUser } from "react-icons/ci";
-import Slider from "react-slick";
+// import { IoArrowBackOutline, IoArrowForward } from "react-icons/io5";
+// import { CiUser } from "react-icons/ci";
+// import Slider from "react-slick";
 import { api } from '../api/api';
 import { resources } from '../api/resources';
 import SelectSpaceCard from '../components/Booking/SelectSpaceCard';
 import { BookingContext } from '../context/BookingContext';
 import CalendarPicker3 from '../components/CalendarPicker3';
 import dayjs from 'dayjs';
-
-const { TextArea } = Input
+import { useLocation } from 'react-router-dom'
 
 const Booking = () => {
     const [form] = Form.useForm()
@@ -24,6 +23,10 @@ const Booking = () => {
     const [deskSpace, setDeskSpace] = useState([]);
     const [selectDatesModal, setSelectDatesModal] = useState(false);
     const [loading, setLoading] = useState(false)
+    const location = useLocation();
+
+    const searchParams = new URLSearchParams(location.search);
+    const pcode = searchParams.get('pcode');
 
     const {spaceType, startDate, endDate, setSpaceType} = useContext(BookingContext)
 
@@ -42,7 +45,7 @@ const Booking = () => {
             return
         }
 
-        message.success(`You are booking for ${dayjs(startDate).format('MMM D, YYYY') + " to " + dayjs(endDate).format('MMM D, YYYY')}`)
+        // message.success(`You are booking for ${dayjs(startDate).format('MMM D, YYYY') + " to " + dayjs(endDate).format('MMM D, YYYY')}`)
         setSelectDatesModal(false)
     }
 
@@ -77,6 +80,7 @@ const Booking = () => {
 
   useEffect(() => {
     document.title = "OSL Spaces | Booking"
+
     window.scrollTo(0, 0);
     fetchData()
     checkIfDates()
@@ -86,10 +90,10 @@ const Booking = () => {
         <div className='bg-[#19498C] min-h-[375px] '>
             <Navbar />
 
-            <div className='pt-[90px] flex items-center flex-col gap-3'>
-                <h3 className='text-white text-6xl font-bold'>Orchid Springs Booking</h3>
+            <div className='pt-[90px] flex items-center flex-col gap-3 px-3'>
+                <h3 className='text-white text-4xl md:text-6xl font-bold'>Orchid Springs Booking</h3>
 
-                <div className='text-white text-xl'>
+                <div className='text-white text-lg md:text-xl'>
                     <span>Home</span> <span className='mx-2'>|</span> <span className='text-secondary'>Booking</span>
                 </div>
             </div>
@@ -109,7 +113,7 @@ const Booking = () => {
                         </div>
                     </Flex>
                 ) : (
-                    <SelectSpaceCard rooms={conferenceRooms} spaces={deskSpace} key={1} />
+                    <SelectSpaceCard rooms={conferenceRooms} spaces={deskSpace} pcode={pcode} key={1} />
                 )
             }
             {/* <SelectSpaceCard2 /> */}
@@ -131,7 +135,7 @@ const Booking = () => {
                 Please you need to select your booking period before you can proceed
             </div>
             <div className='w-full bg-[#F8F3E7] min-h-[100px] rounded-lg mt-5 px-4 py-4 grid grid-cols-1 md:grid-cols-2'>
-                <div className='flex justify-center md:justify-end items-center  mt-5 md:mt-0'>
+                <div className='flex justify-start md:justify-end items-center  mt-5 md:mt-0'>
                     <div className='flex flex-col md:pr-4'>
                         <label htmlFor="space_type" className='text-[#DAB191] text-[12px] pl-1'>Spaces</label>
                         <select name="" id="space_type" defaultValue="single_spot" onChange={handleTypeChange} className='bg-transparent border-0 md:min-w-[160px] outline-none text-[14px] md:text-[16px] cursor-pointer'>

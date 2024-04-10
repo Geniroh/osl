@@ -14,29 +14,6 @@ import OslBanner from "../components/OslBanner"
 import ServiceSliderCards from "../components/ServiceSliderCards"
 import Footer from "../components/Footer"
 
-// const cardData = [
-//     {
-//       title: 'Card 1',
-//       description: 'Description for Card 1',
-//       image: '/path/to/image1.jpg'
-//     },
-//     {
-//       title: 'Card 2',
-//       description: 'Description for Card 2',
-//       image: '/path/to/image2.jpg'
-//     },
-//     {
-//       title: 'Card 3',
-//       description: 'Description for Card 3',
-//       image: '/path/to/image3.jpg'
-//     },
-//     {
-//       title: 'Card 4',
-//       description: 'Description for Card 3',
-//       image: '/path/to/image3.jpg'
-//     }
-//   ];
-
 const Home = () => {
   const [loading, setLoading] = useState(true)
 
@@ -57,8 +34,7 @@ const Home = () => {
             </div>
 
             <section>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 mt-[300px] md:mt-[100px] lg:mt-[200px] gap-6 mb-[100px]">
+                <div className="grid grid-cols-1 lg:grid-cols-3 mt-[200px] md:mt-[100px] lg:mt-[200px] gap-6 mb-[100px]">
                     <IconCard icon={<PiChatsCircle />} heading={'We are here to assist'} text={'Call +234 806 578 4393 to contact us.'} />
                     <IconCard icon={<FaCalendarAlt />} heading={'Booking Assistant'} text={'Call +234 806 578 4393 to contact us.'} />
                     <IconCard icon={<RiMoneyDollarCircleLine />} heading={'More Services'} text={'Call +234 806 578 4393 to contact us.'} />
@@ -72,9 +48,9 @@ const Home = () => {
                         <span className="text-mydark font-bold text-3xl">Promo Deals</span>
                     </div>
 
-                    <div className="flex gap-3 items-center">
-                        <span className="font-semibold">Best Price Guaranteed</span>
-                        <HiCheckCircle size={24} />
+                    <div className="flex gap-1 md:gap-3 items-center  max-w-[120px] md:max-w-[300px]">
+                        <span className="font-semibold text-wrap">Best Price Guaranteed</span>
+                        <HiCheckCircle className="text-[28px] md:text-[22px]" />
                     </div>
                 </div>
                 <Row className="mt-5" gutter={20}>

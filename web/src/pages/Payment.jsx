@@ -3,11 +3,10 @@ import Navbar from '../components/Navbar';
 import ProgressBar from '../components/ProgressBar';
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
-import BookingDetailsForm from '../components/Booking/BookingDetailsForm';
 
-const BookingDetails = () => {
+const Payment = () => {
     useEffect(() => {
-        document.title = "OSL Spaces | Booking Details"
+        document.title = "OSL Spaces | Payment Details"
         window.scrollTo(0, 0);
     }, [])
   return (
@@ -16,21 +15,20 @@ const BookingDetails = () => {
             <Navbar />
 
             <div className='pt-[90px] flex items-center flex-col gap-3'>
-                <h3 className='text-white text-6xl font-bold'>Booking Details</h3>
+                <h3 className='text-white text-6xl font-bold'>Payment Details</h3>
 
                 <div className='text-white text-xl'>
-                    <span>Home</span> <span className='mx-2'>|</span> <span className='text-secondary'>Booking Details</span>
+                    <span>Home</span> <span className='mx-2'>|</span> <span className='text-secondary'>Payment Details</span>
                 </div>
             </div>
         </div>
 
         <div>
-            <ProgressBar firstNum={2} firstText="Guest Information" secondNum={3} secondText="Payment" title="Customer Details: Please fill in with valid information." />
+            <ProgressBar firstNum={3} firstText="Payment" secondNum={4} secondText="Confirmation" title="Payment" />
         </div>
 
         <div className='bg-[#FBF9F2] py-[100px]'>
-          <BookingDetailsForm />
-          {/* <BookingDetailsForm2 /> */}
+         
         </div>
 
 
@@ -44,4 +42,4 @@ const BookingDetails = () => {
   )
 }
 
-export default BookingDetails
+export default Payment

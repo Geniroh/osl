@@ -136,7 +136,7 @@ body {
 
 section {
     margin-inline: auto;
-    width: 94%;
+    width: 92%;
     max-width: 1440px;
 }
 
@@ -158,21 +158,28 @@ section {
 	opacity: .35;
 	/* z-index: -1; */
 }
-
-.fade-in-out {
-    animation: fadeInOut 4s infinite ease-in-out;
+  /* Define the animation keyframes */
+@keyframes shrinkAndEnlarge {
+	0% {
+	  transform: scale(1.1);
+	  border: 1px solid #e4e4e4;
+	}
+	50% {
+	  transform: scale(0.8);
+	  border: 1px solid #57112F;
+	}
+	100% {
+	  transform: scale(1.1);
+	  border: 1px solid #e4e4e4;
+	}
   }
   
-  @keyframes fadeInOut {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+  /* Create a CSS class that applies the animation */
+  .shrink-enlarge {
+	animation: shrinkAndEnlarge 2s ease infinite;
+	transform-origin: center;
+	border: 1px solid #e4e4e4;
+	padding: 7px;
   }
   
 

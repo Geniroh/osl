@@ -35,6 +35,7 @@ const checkReservationAvailability = async (req, res, next) => {
 
 const createReservation = async (req, res, next) => {
     const session = await mongoose.startSession();
+    console.log(req.body)
     const { formData, promoCode } = req.body
     try {
         await session.startTransaction();
@@ -43,6 +44,7 @@ const createReservation = async (req, res, next) => {
 
         
         const spaces = groupBySpaceId(formData)
+        console.log(spaces)
 
         const existingReservations = await Reservation.find({
             $or: spaces.map(({space_id, dates}) => ({
@@ -60,6 +62,8 @@ const createReservation = async (req, res, next) => {
 
         const spaceIds = spaces.map((item) => item.space_id); 
         const selectedSpaces = await OfficeSpace.find({ _id: { $in: spaceIds } });
+
+        console.log({selectedSpaces, spaceIds})
 
         if (selectedSpaces.length !== spaceIds.length) createError(404, 'One or more spaces not found');
 
@@ -159,6 +163,7 @@ const getReservees = async (req,res,next) => {
 }
 
 const costReservation = async (req, res, next) => {
+  console.log(req.body)
   let { reservation_id } = req.body;
   const reservation_ids = reservation_id
   
@@ -209,6 +214,7 @@ const costReservation = async (req, res, next) => {
       createError(404, "No IDs provided for reservation lookup!");
     }
   } catch (error) {
+    console.log(error)
     next(error);
   }
 };

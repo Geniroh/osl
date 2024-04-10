@@ -9,12 +9,18 @@ import { calculateDaysWithDatesArray } from '../../utils/function';
 import { BookingContext } from '../../context/BookingContext';
 import dayjs from 'dayjs';
 import SpaceBlock from './SpaceBlock';
+import { api } from '../../api/api';
+import { resources } from '../../api/resources';
+import { useNavigate } from 'react-router-dom';
 
 
-const SelectSpaceCard = ({rooms, spaces}) => {
-    const { startDate, endDate, selectedSpaces } = useContext(BookingContext)
+const SelectSpaceCard = ({rooms, spaces, pcode}) => {
+    const { startDate, endDate, selectedSpaces, setSpaceForReservation } = useContext(BookingContext)
     const sliderRef = useRef();
     const [selectedDays, setSelectedDays] = useState([])
+    const [btnLoading, setBtnLoading] = useState(false)
+    const navigate = useNavigate();
+
 
     const goToPrev = () => {
         sliderRef.current.slickPrev();
@@ -36,7 +42,7 @@ const SelectSpaceCard = ({rooms, spaces}) => {
     const checkSelectedSpaces = (selectedDays, selectedSpaces) => {
         selectedDays.forEach(day => {
             const spaceFound = selectedSpaces.some(space => {
-                const spaceDate = new Date(space.day);
+                const spaceDate = new Date(space.current_date);
                 return spaceDate.toDateString() === day.toDateString();
             });
             if (!spaceFound) {
@@ -44,15 +50,28 @@ const SelectSpaceCard = ({rooms, spaces}) => {
                 throw new Error(`Please select a space for ${day.toDateString()}`);
             }
         });
-        message.success("Success")
-      };
+    };
 
-    const handleProceed = () => {
+    const handleProceed = async () => {
+        setBtnLoading(true)
         try {
             checkSelectedSpaces(selectedDays,selectedSpaces)
+
+            const { data } = await api.post(resources.reservationUrl, {
+                formData: selectedSpaces,
+                promoCode: pcode
+            })
+
+            if(data) {
+                setSpaceForReservation(data)
+                message.success("Success")
+                navigate("/booking-details", { replace: true })
+            }
+
         } catch (error) {
             console.log(error)
         }
+        setBtnLoading(false)
     }
 
     useEffect(() => {
@@ -79,8 +98,8 @@ const SelectSpaceCard = ({rooms, spaces}) => {
                             selectedDays.length > 1 && (
                                 <div className='flex w-full justify-end mb-3'>
                                     <div className="flex gap-3">
-                                        <span className="p-2 border shadow-sm rounded-md flex justify-center items-center text-2xl text-mydark cursor-pointer" onClick={goToPrev}><IoArrowBackOutline /></span>
-                                        <span className="p-2 border shadow-sm rounded-md flex justify-center items-center text-2xl text-mydark cursor-pointer" onClick={goToNext}><IoArrowForward /></span>
+                                        <span className="p-2 border shadow-sm rounded-md flex justify-center items-center text-2xl text-mydark cursor-pointer shrink-enlarge" title='Use arrows to navigate days' onClick={goToPrev}><IoArrowBackOutline /></span>
+                                        <span className="p-2 border shadow-sm rounded-md flex justify-center items-center text-2xl text-mydark cursor-pointer shrink-enlarge" title='Use arrows to navigate days' onClick={goToNext}><IoArrowForward /></span>
                                     </div>
                                 </div>
                             )
@@ -92,7 +111,7 @@ const SelectSpaceCard = ({rooms, spaces}) => {
                                 selectedDays.length < 2 ? (
                                     <Space className='w-full' key={1000}>
                                         <Row gutter={10}>
-                                            <Col span={14} className=''>
+                                            <Col xs={24} md={14}  className='mb-5'>
                                                 <div className='text-xl font-semibold leading-8 flex flex-col'>
                                                     <span className='text-sm text-secondary'>
                                                         Day 1
@@ -134,7 +153,7 @@ const SelectSpaceCard = ({rooms, spaces}) => {
                                                     </div>
                                                 </div>
                                             </Col>
-                                            <Col span ={10} className='flex justify-end w-full'>
+                                            <Col xs={24} md={10} className='flex justify-end w-full'>
                                                 <div>
                                                     <div className='flex gap-6'>
                                                         <div className='flex gap-2 items-center text-lg'>
@@ -158,13 +177,14 @@ const SelectSpaceCard = ({rooms, spaces}) => {
                                             selectedDays.map((day, i) => (
                                                 <Space className='w-full'key={i} >
                                                     <Row gutter={10} key={i}>
-                                                        <Col span={14} className=''>
+                                                        <Col xs={24} md={14} className='mb-5'>
                                                             <div className='text-xl font-semibold leading-8 flex flex-col'>
                                                                 <span className='text-sm text-secondary'>
                                                                     Day {i +1} / {selectedDays.length}
                                                                 </span>
                                                                 <span>
-                                                                    {dayjs(day).format('MMM D, YYYY')}
+                                                                    {dayjs(day).format('MMMM D, YYYY')}
+                                                                    {/* {day.toString()} */}
                                                                 </span>
                                                             </div>
 
@@ -200,7 +220,7 @@ const SelectSpaceCard = ({rooms, spaces}) => {
                                                                 </div>
                                                             </div>
                                                         </Col>
-                                                        <Col span ={10} className='flex justify-end w-full'>
+                                                        <Col xs={24}  md={10} className='flex justify-end w-full'>
                                                             <div>
                                                                 <div className='flex gap-6'>
                                                                     <div className='flex gap-2 items-center text-lg'>
@@ -229,8 +249,9 @@ const SelectSpaceCard = ({rooms, spaces}) => {
 
                     
 
-                <button className='w-full bg-secondary text-mydark py-3 font-semibold rounded-b-lg' onClick={handleProceed}>
-                            Proceed
+                <button className='w-full bg-secondary text-mydark py-3 font-semibold rounded-b-lg flex gap-1 items-center justify-center' onClick={handleProceed} disabled={btnLoading}>
+                            Proceed {btnLoading && <div className="border-[2px] border-white border-t-2 border-t-primary rounded-full w-[9px] h-[9px] animate-spin">
+                                </div> }
                 </button>
                 </div>
             </section>
