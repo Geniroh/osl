@@ -27,7 +27,7 @@ const PaymentDetails = () => {
             <Navbar />
 
             <div className='pt-[90px] flex items-center flex-col gap-3'>
-                <h3 className='text-white text-6xl font-bold'>Paymnet Details</h3>
+                <h3 className='text-white text-6xl font-bold'>Payment Details</h3>
 
                 <div className='text-white text-xl'>
                     <span>Home</span> <span className='mx-2'>|</span> <span className='text-secondary'>Payment Details</span>

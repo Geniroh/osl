@@ -32,7 +32,7 @@ const ScrollToTop = () => {
         <div ref={scrollRef}>
             {
                 show && (
-                    <button className={`bg-[#FFA903] p-3 rounded-lg fixed bottom-[10px] transition-transform duration-1000 transform right-[10px] shadow-md ${show ? 'translate-y-0' : 'translate-y-full'}`} onClick={handleToTop}>
+                    <button className={`bg-[#FFA903] p-3 rounded-lg fixed bottom-[10px] transition-transform duration-1000 transform right-[10px] shadow-2xl ${show ? 'translate-y-0' : 'translate-y-full'}`} onClick={handleToTop}>
                         <FaChevronUp className='text-white text-xl' />
                     </button>
                 )

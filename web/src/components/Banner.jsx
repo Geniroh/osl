@@ -25,7 +25,7 @@ const Banner = () => {
                 <div className='rounded-2xl bg-white p-5 flex gap-3 items-center justify-between max-w-[300px] w-full'>
                     <div className='flex flex-col text-3xl'>
                         <span className='font-bold'>100%</span>
-                        <span className='text-sm'>CLients Satisfied</span>
+                        <span className='text-sm'>Clients Satisfied</span>
                     </div>
                     <TbWorld className='text-5xl' />
                 </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import BookingCalendarSwitch from './BookingCalendarSwitch';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const highlights = [
     {
@@ -33,7 +33,6 @@ const highlights = [
 
 const HeroBg = () => {
   const [index, setIndex] = useState(0);
-  const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -41,9 +40,7 @@ const HeroBg = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setFadeIn(true);
       setIndex((prevIndex) => (prevIndex + 1) % highlights.length);
-      setTimeout(() => setFadeIn(false), 1000);
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -57,7 +54,6 @@ const HeroBg = () => {
         <Navbar />
         <div className="px-8 md:px-20 py-6 md:py-20">
             <div className={` text-white transition-all duration-1000`} >
-              <AnimatePresence initial={false}>
                 <motion.div
                     key={index}
                     initial={{ opacity: 0, y: '50%' }}
@@ -68,7 +64,6 @@ const HeroBg = () => {
                   <p className={`text-md md:text-xl font-extralight text-[#EAE8E8] mt-3 mb-8 `} >{highlights[index].subtile}</p>
                   <Link to="/" className={`px-4 py-3 md:px-6 md:py-4 text-[18px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg `}>Check us out!</Link>
                 </motion.div>
-              </AnimatePresence>
             </div>
 
             <div className='mt-32'>

@@ -40,7 +40,8 @@ const startPayment = async (req, res, next) => {
       // If everything is successful, commit the transaction
       await session.commitTransaction();
   
-      res.redirect(data.data.link)
+      // res.redirect(data.data.link)
+      res.status(200).json({ link: data.data.link})
     } catch (error) {
       await session.abortTransaction();
   
@@ -73,8 +74,6 @@ const completePayment = async (req,res,next) => {
           const amount = calculateTotalReservationAmount(reservations);
           const reservation_ids = reservations.map(item => item._id);
 
-        
-  
             const newPayment = await Payment.create({
               reservation_ids,
               person_id: person._id,
@@ -87,9 +86,9 @@ const completePayment = async (req,res,next) => {
         await sendEmailWithPDF((person.firstname + ' ' + person.lastname), person.email, amount, tx_ref )
 
         if(!newPayment) createError(500, 'Error creating payment')
-        res.redirect(`${process.env.ENDPOINT}/confirmation?status=${status}&tx_ref=${tx_ref}`)
+        res.redirect(`${process.env.FRONTEND}/confirmation?status=${status}&tx_ref=${tx_ref}`)
     } else {
-      res.redirect(`${process.env.ENDPOINT}/confirmation?status=${status}&tx_ref=${tx_ref}`)
+      res.redirect(`${process.env.FRONTEND}/confirmation?status=${status}&tx_ref=${tx_ref}`)
     }
     // If everything is successful, commit the transaction
     await session.commitTransaction();

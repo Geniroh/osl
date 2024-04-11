@@ -22,6 +22,18 @@ const { verifyToken } = require('./middleware/authHandler');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+const corsOptions ={
+    origin: [
+        'https://spaces.orchidsprings.group',
+        'http://spaces.orchidsprings.group',
+        'http://admin.orchidsprings.group',
+        'https://admin.orchidsprings.group',
+        'http://localhost:5173'
+    ], 
+    credentials: true,
+    optionsSuccessStatus: 200
+}
+
 app.use(cors());
 
 app.use(express.json());

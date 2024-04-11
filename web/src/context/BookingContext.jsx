@@ -7,12 +7,15 @@ export const BookingProvider = ({ children }) => {
     const [endDate, setEndDate] = useState(null);
     const [spaceType, setSpaceType] = useState('single_spot');
     const [selectedSpaces, setSelectedSpaces] = useState([]);
-    const [spaceForReservation, setSpaceForReservation] = useState([])
-    const [paymentDetails, setPaymentDetails] = useState(null)
+    const [spaceForReservation, setSpaceForReservation] = useState([]);
+    const [paymentDetails, setPaymentDetails] = useState(null);
+    const [promoDetails, setPromoDetails] = useState({
+        pcode: null,
+        promoType: null
+    })
 
     const appendSelectedSpace = (space) => {
         const exists = selectedSpaces.includes(space)
-        // console.log(selectedSpaces)
         if(!exists) {
             setSelectedSpaces(prev => [...prev, {space_id: space._id, current_date: space.day }]);
         }
@@ -40,6 +43,8 @@ export const BookingProvider = ({ children }) => {
         setSpaceForReservation,
         paymentDetails,
         setPaymentDetails,
+        promoDetails,
+        setPromoDetails,
     };
 
     return (

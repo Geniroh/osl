@@ -1,4 +1,4 @@
-import React, { useContext, useState, memo } from 'react'
+import React, { useContext, useState, memo, useEffect } from 'react'
 import { FaRegCalendarDays, FaRegCircleCheck } from "react-icons/fa6";
 import CalendarPicker3 from './CalendarPicker3';
 import { BookingContext } from '../context/BookingContext';
@@ -22,6 +22,10 @@ const BookingCalendarSwitch = () => {
             navigate("/booking")
         }
     }
+
+    useEffect(() => {
+        console.log("from BookCalendar")
+    }, [])
 
   return (
     <>

@@ -65,6 +65,31 @@ export const calculateDaysWithDatesArray = (start_date, end_date) => {
   return days;
 };
 
+export const formatNumber = (number) => {
+  return Number(number).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+};
+
+export const calculateDays = (start_date, end_date) => {
+  if (!(start_date instanceof Date)) {
+      start_date = new Date(start_date);
+  }
+  if (!(end_date instanceof Date)) {
+      end_date = new Date(end_date);
+  }
+
+  const timeDiff = end_date - start_date;
+  const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  if(days === 0){
+      return 1
+  } else {
+      return days + 1;
+  }
+};
+
+
+
+
 // export const checkSelectedSpaces = (selectedDays, selectedSpaces) => {
 //   selectedDays.forEach(day => {
 //       const spaceFound = selectedSpaces.some(space => {

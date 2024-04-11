@@ -61,16 +61,16 @@ const Home = () => {
                     <Col xs={24} md={12}>
                         <Row gutter={20}>
                             <Col xs={24} md={12} className="mb-3">
-                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Daily'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
                             </Col>
                             <Col xs={24} md={12} className="mb-3">
-                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
                             </Col>
                             <Col xs={24} md={12}>
-                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
                             </Col>
                             <Col xs={24} md={12}>
-                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
                             </Col>
                         </Row>
                     </Col>

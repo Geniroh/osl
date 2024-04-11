@@ -7,6 +7,7 @@ import BookingDetails from "../pages/BookingDetails"
 import Payment from "../pages/Payment"
 import PromoPage from "../pages/Promo"
 import PaymentDetails from "../pages/PaymentDetails"
+import ConfirmationPage from "../pages/Confirmation"
 
 const BaseRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const BaseRoutes = () => {
         <Route path="/payment-details" element={<PaymentDetails />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/promo" element={<PromoPage />} />
+        <Route path="/confirmation" element={<ConfirmationPage />} />
     </Routes>
   )
 }
