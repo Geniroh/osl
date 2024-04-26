@@ -15,7 +15,7 @@ const PromoCard = ({ size, img, startDate, endDate, type, price, title, pcode })
       promoType: type
     }));
 
-    navigate("/promo")
+    navigate(`/promo?type=${type}&code=${pcode}`)
   }
 
   return (

@@ -35,8 +35,13 @@ const updatePerson = async (req,res,next) => {
   const { id } = req.params
   try {
     if(id) {
-      const person = await People.findByIdAndUpdate(id, {...req.body}, { new: true },);
-      res.status(200).json(person);
+      await People.findByIdAndUpdate(id, {...req.body}, { new: true },);
+
+      res.status(200).json({
+        userId: id,
+        operation: "successful",
+      });
+
     } else {
       createError(500, "Error retrieving space record")
     }

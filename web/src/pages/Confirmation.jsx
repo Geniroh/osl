@@ -25,13 +25,13 @@ const ConfirmationPage = () => {
         const { data } = await api.get(resources.paymentUrl+"/"+txRef)
         setReservation(data)
     } catch {
-        // console.log(error)
+        message.error("Network Error!")
     }
     setLoading(false)
   }
 
   useEffect(() => {
-    if(status == 'cancelled') {
+    if(status != 'successful') {
         message.error('Payment was not successful, please try again!')
     }
     fetchDetails()
@@ -57,7 +57,7 @@ const ConfirmationPage = () => {
 
               {
                 loading ? (
-                    <Flex align="center" gap="middle" justify='center'>
+                    <Flex align="center" gap="middle" justify='center' className='mt-5'>
                         <Spin size="large" className='text-[#0D6EFD]' />
                         <div className='mt-3 text-gray-400 font-semibold text-[16px] text-center text-wrap'>
                             Loading, please wait!
@@ -72,7 +72,7 @@ const ConfirmationPage = () => {
                                 <ul className="list-none">
                                 <li className="text-muted font-bold">Name: {reservation.name}</li>
                                 <li className="text-muted font-bold">Email: {reservation.email}</li>
-                                <li className="text-muted mt-1 font-bold">Invoice: {reservation.tx_ref}</li>
+                                <li className="text-muted mt-1 font-bold">Booking ID: {reservation.tx_ref}</li>
                                 <li className="text-muted mt-1 font-bold">Date: {dayjs(reservation?.paymentDate).format('MMM D, YYYY')}</li>
                                 </ul>
                                 <hr className="my-4" />

@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const Promos = require('../models/promo.model');
 const axios = require('axios');
 const { createError, myNanoid, groupBySpaceId, calculateTotalReservationAmount } = require('../utils');
+const dayjs = require('dayjs');
 
 const checkReservationAvailability = async (req, res, next) => {
   try {
@@ -16,7 +17,7 @@ const checkReservationAvailability = async (req, res, next) => {
         { space_id },
         {
           dates: {
-            $in: [new Date(current_date)], 
+            $in: [dayjs(current_date).format('YYYY-MM-DD')], 
           },
         },
         { status: 'completed' },
@@ -35,7 +36,6 @@ const checkReservationAvailability = async (req, res, next) => {
 
 const createReservation = async (req, res, next) => {
     const session = await mongoose.startSession();
-    console.log(req.body)
     const { formData, promoCode } = req.body
     try {
         await session.startTransaction();
@@ -44,7 +44,6 @@ const createReservation = async (req, res, next) => {
 
         
         const spaces = groupBySpaceId(formData)
-        console.log(spaces)
 
         const existingReservations = await Reservation.find({
             $or: spaces.map(({space_id, dates}) => ({
@@ -62,8 +61,6 @@ const createReservation = async (req, res, next) => {
 
         const spaceIds = spaces.map((item) => item.space_id); 
         const selectedSpaces = await OfficeSpace.find({ _id: { $in: spaceIds } });
-
-        console.log({selectedSpaces, spaceIds})
 
         if (selectedSpaces.length !== spaceIds.length) createError(404, 'One or more spaces not found');
 
@@ -87,7 +84,7 @@ const createReservation = async (req, res, next) => {
             if (matchingSpace) {
                 const data = {
                     space_id: space.space_id,
-                    dates: space.dates,
+                    dates: dayjs(space.dates).format('YYYY-MM-DD'),
                     status: 'pending',
                     price: space.dates.length * matchingSpace.price * ((100 - discountPercentage) / 100 || 1),
                     discountPercentage,
@@ -145,8 +142,8 @@ const getReservees = async (req,res,next) => {
           _id: reservation._id,
           name: person.firstname + " " + person.lastname,
           email: person.email,
-          seat_number: reservation.space_id.seat_number,
-          type: reservation.space_id.type,
+          seat_number: reservation.space_id?.seat_number || null,
+          type: reservation.space_id?.type || null,
           dates: reservation.dates,
           price: reservation.price,
           status: reservation.status,
@@ -163,7 +160,6 @@ const getReservees = async (req,res,next) => {
 }
 
 const costReservation = async (req, res, next) => {
-  console.log(req.body)
   let { reservation_id } = req.body;
   const reservation_ids = reservation_id
   

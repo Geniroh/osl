@@ -14,7 +14,7 @@ import { resources } from '../../api/resources';
 import { useNavigate } from 'react-router-dom';
 
 
-const SelectSpaceCard = ({rooms, spaces, pcode}) => {
+const SelectSpaceCard = ({rooms, spaces, pcode, btnClick}) => {
     const { startDate, endDate, selectedSpaces, setSpaceForReservation } = useContext(BookingContext)
     const sliderRef = useRef();
     const [selectedDays, setSelectedDays] = useState([])
@@ -70,16 +70,25 @@ const SelectSpaceCard = ({rooms, spaces, pcode}) => {
 
         } catch (error) {
             console.log(error)
+
+            if(error?.response?.data?.message == "Invalid promo code") {
+                message.error("This promo is no longer valid")
+            }
         }
         setBtnLoading(false)
     }
 
-    useEffect(() => {
+    const checkSelectedDays = () => {
         if(startDate && endDate) {
             const days = calculateDaysWithDatesArray(startDate, endDate)
             setSelectedDays(days)
+            return days
         }
-    }, [startDate, endDate, selectedSpaces]);
+    }
+
+    useEffect(() => {
+        checkSelectedDays()
+    }, [startDate, endDate, selectedSpaces, btnClick ]);
 
   return (
     <>
@@ -137,7 +146,7 @@ const SelectSpaceCard = ({rooms, spaces, pcode}) => {
                                                         <div className="grid grid-cols-4 gap-3">
                                                             {
                                                                 spaces.map((space) => (
-                                                                    <SpaceBlock space={space} key={space._id} type='space' day={selectedDays[0]} />
+                                                                    <SpaceBlock space={space} key={space._id} type='space' day={selectedDays && selectedDays[0]} />
                                                                 ))
                                                             }
                                                         </div>
@@ -145,7 +154,7 @@ const SelectSpaceCard = ({rooms, spaces, pcode}) => {
                                                             {
                                                                 rooms.map((space) => (
                                                                     <div className='col-span-2 w-full' key={space._id}>
-                                                                        <SpaceBlock space={space} key={space._id} type='room' />
+                                                                        <SpaceBlock space={space} key={space._id} type='room' day={selectedDays && selectedDays[0]} />
                                                                     </div>
                                                                 ))
                                                             }

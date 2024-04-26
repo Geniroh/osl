@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Form, Row, Col, message } from 'antd';
 import { FaInfoCircle } from "react-icons/fa";
 import dayjs from 'dayjs';
@@ -6,10 +6,16 @@ import { formatNumber } from '../utils/function';
 import { api } from '../api/api';
 import { resources } from '../api/resources';
 import { useNavigate } from 'react-router-dom';
+import { BookingContext } from '../context/BookingContext';
 
 const PaymentDetailsCard = ({ details }) => {
     const navigate = useNavigate()
     const [btnLoading,setBtnLoading] = useState(false)
+    const [isDiscount, setIsDiscount] = useState(false)
+    const [originalPrice,setOriginalPrice] = useState(0)
+    const [promo,setPromo] = useState(null)
+
+    const {promoDetails} = useContext(BookingContext)
 
     const handlePayNow = async () => {
         setBtnLoading(true)
@@ -18,36 +24,34 @@ const PaymentDetailsCard = ({ details }) => {
             const { data } = await api.post(resources.paymentUrl, details);
     
             if(data) {
-                window.location.href = data.link; // Navigate directly to the payment link
+                window.location.href = data.link;
             }
-            console.log(data)
         } catch (error) {
             message.error("Could not process payment at the moment, Please try again!");
-            console.log(error)
         }
         setBtnLoading(false)
     }
-    
 
-    // const handlePayNow = async () => {
-    //     setBtnLoading(true)
-    //     try {
-    //         details.amount = details.total
-    //         const { data } = await api.post(resources.paymentUrl, details);
+    function calculateOriginalPrice(total, discountPercentage) {
+        return total / ((100 - discountPercentage) / 100);
+    }
 
-    //         if(data) {
-    //             navigate(data.link, {replace: true })
-    //         }
-    //         console.log(data)
-    //     } catch (error) {
-    //         message.error("Could not process payment at the moment, Please try again!");
-    //         console.log(error)
-    //     }
-    //     setBtnLoading(false)
-    // }
+    const checkPromoApplied = async () => {
+        if(promoDetails.pcode){
+            const { data } = await api.get(resources.promoUrl +`/${promoDetails.pcode}`);
+
+            if(data) {
+                let total = calculateOriginalPrice(details.total, data.discountPercentage)
+                setIsDiscount(true)
+                setPromo(data)
+                setOriginalPrice(total)
+            }
+        }
+    }
 
     useEffect(() => {
-        console.log(details)
+
+        checkPromoApplied()
     }, [])
    
   return (
@@ -105,7 +109,17 @@ const PaymentDetailsCard = ({ details }) => {
                             <h3 className='font-semibold text-lg leading-10'>Price</h3>
                         </Col>
                         <Col xs={24} sm={12} className='flex sm:justify-end'>
-                            <h3 className='text-lg leading-10 font-bold'>₦ {formatNumber(details?.total)}</h3>
+                            {
+                                isDiscount ? 
+                                (
+                                    <div className='flex flex-col'>
+                                        <h3 className='text-right'>{promo?.discountPercentage}% promo applied</h3>
+                                        <h3 className='text-lg leading-10 font-bold'> <span className='line-through text-sm'>₦ {formatNumber(originalPrice)}</span> ₦ {formatNumber(details?.total)}</h3>
+                                    </div>
+                                ): (
+                                    <h3 className='text-lg leading-10 font-bold'>₦ {formatNumber(details?.total)}</h3>
+                                )
+                            }
                         </Col>
                     </Row>
                 </section>

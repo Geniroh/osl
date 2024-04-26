@@ -18,10 +18,10 @@ const Footer = () => {
         </div>
 
         <div className='flex justify-center gap-5 text-white text-2xl'>
-            <Link target='_blank' to=""><FaFacebookF /></Link>
-            <Link target='_blank' to=""><FaTwitter /></Link>
-            <Link target='_blank' to=""><FaLinkedin /></Link>
-            <Link target='_blank' to=""><MdEmail /></Link>
+            <Link target='_blank' to="https://web.facebook.com/profile.php?id=100095272388119&mibextid=LQQJ4d&_rdc=1&_rdr"><FaFacebookF /></Link>
+            <Link><FaTwitter /></Link>
+            <Link target='_blank' to="https://www.linkedin.com/company/orchid-springs-limited/"><FaLinkedin /></Link>
+            <a href="mailto:info@orchidsprings.group <info@orchidsprings.group>;" target='_blank'><MdEmail /></a>
         </div>
 
         <div>

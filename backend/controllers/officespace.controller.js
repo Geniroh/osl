@@ -1,4 +1,5 @@
 const OfficeSpace = require('../models/officespace.model');
+const Reservation = require('../models/reservation.model');
 const { createError } = require('../utils');
 
 const createOfficeSpace = async (req,res,next) => {
@@ -44,9 +45,17 @@ const deleteOfficeSpace = async (req,res,next)=>{
   const { id } = req.params
   try {
     if(id) {
-      const space = await OfficeSpace.findByIdAndDelete(id);
-      if(!space) createError(404, "Cannot perform delete operation")    
-      res.status(200).json(space);
+      const deletedSpace = await OfficeSpace.findByIdAndDelete(id);
+
+      if (!deletedSpace) {
+        return res.status(404).json({ error: 'Office space not found' });
+      }
+      await Reservation.deleteMany({ space_id: deletedSpace._id });
+
+      res.status(200).json({ message: 'Office space deleted successfully', space: deletedSpace });
+      // const space = await OfficeSpace.findByIdAndDelete(id);
+      // if(!space) createError(404, "Cannot perform delete operation")    
+      // res.status(200).json(space);
     } else {
       createError(404, "Record was not found!")
     }

@@ -60,9 +60,9 @@ const HeroBg = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1}}
                 >
-                  <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold max-w-[900px] `}>{highlights[index].heading}</h2>
+                  <h2 className={`text-2xl md:text-3xl lg:text-5xl font-bold max-w-[900px] lg:max-w-[960px] `}>{highlights[index].heading}</h2>
                   <p className={`text-md md:text-xl font-extralight text-[#EAE8E8] mt-3 mb-8 `} >{highlights[index].subtile}</p>
-                  <Link to="/" className={`px-4 py-3 md:px-6 md:py-4 text-[18px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg `}>Check us out!</Link>
+                  <Link to="/gallery" className={`px-4 py-3 md:px-6 md:py-4 text-[18px] font-semibold bg-secondary text-[#2A2A2A] hover:bg-white rounded-lg `}>Check us out!</Link>
                 </motion.div>
             </div>
 

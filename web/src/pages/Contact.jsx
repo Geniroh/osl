@@ -2,13 +2,40 @@ import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
-import { Row, Col, Form, Input } from 'antd';
+import { Row, Col, Form, Input, message } from 'antd';
 import { validateEmail, validatePhoneNumber } from '../utils/function';
+import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { api } from '../api/api';
+import { resources } from '../api/resources';
 
 const { TextArea } = Input
 
 const Contact = () => {
-    const [form] = Form.useForm()
+    const [form] = Form.useForm();
+    const [loading, setLoading] = useState(false)
+
+    const showError = () => {
+        message.error("Please fill all required fills")
+    }
+
+    const handleSubmit = async () => {
+        setLoading(true)
+        try {
+            const values = await form.validateFields()
+
+            const { data } = await api.post(resources.contactUrl, values)
+
+            if(data?.sent) {
+                form.resetFields()
+                message.success("Message sent!")
+            }
+
+        } catch (error) {
+            message.error("Message not sent!")
+        }
+        setLoading(false)
+    }
     
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -22,7 +49,7 @@ const Contact = () => {
                 <h3 className='text-white text-6xl font-bold'>Contact Us</h3>
 
                 <div className='text-white text-xl'>
-                    <span>Home</span> <span className='mx-2'>|</span> <span className='text-secondary'>Contact Us</span>
+                <Link to="/"><span>Home</span></Link> <span className='mx-2'>|</span> <span className='text-secondary'>Contact Us</span>
                 </div>
             </div>
         </div>
@@ -41,12 +68,13 @@ const Contact = () => {
                             layout="vertical"
                             form={form}
                             className='p-10'
+                            onFinishFailed={showError}
                         >
 
                             <Row gutter={10}>
                                 <Col xs={24} md={12}>
                                     <Form.Item 
-                                        name="name"
+                                        name="fullname"
                                         rules={[{ required: true, message: 'Please enter your full name' }]}
                                     >
                                         <Input size='large' placeholder='Your Name*' className='rounded-none placeholder:text-mydark placeholder:text-[17px] placeholder:font-semibold py-3 px-4' />
@@ -72,12 +100,12 @@ const Contact = () => {
                                         ]}
                                         
                                     >
-                                        <Input size='large' type='email' placeholder='Your Subject*' className='rounded-none placeholder:text-mydark placeholder:text-[17px] placeholder:font-semibold py-3 px-4'  />
+                                        <Input size='large' placeholder='Your Subject*' className='rounded-none placeholder:text-mydark placeholder:text-[17px] placeholder:font-semibold py-3 px-4'  />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} md={12} >
                                     <Form.Item 
-                                        name="phone"
+                                        name="phonenumber"
                                         rules={[
                                             { required: true, message: 'Please enter phone number' },
                                             {validator: validatePhoneNumber }
@@ -97,8 +125,9 @@ const Contact = () => {
                                     </Form.Item>
                                 </Col>
 
-                                <div className='flex justify-center mt-5 w-full'>
-                                    <button type='button' className='px-10 rounded-lg py-3 bg-secondary text-mydark hover:text-white hover:bg-mydark text-lg font-semibold'>SUBMIT</button>
+                                <div className='flex justify-center w-full'>
+                                    <button className={`w-full bg-secondary text-mydark py-3 rounded-lg uppercase hover:text-white hover:bg-mydark text-lg font-semibold ${loading && 'cursor-not-allowed'}`} onClick={handleSubmit} disabled={loading}>
+                                        {loading ? 'Loading please wait...' : 'Submit'}</button>
                                 </div>
                             </Row>
 

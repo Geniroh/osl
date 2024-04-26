@@ -8,6 +8,8 @@ import Payment from "../pages/Payment"
 import PromoPage from "../pages/Promo"
 import PaymentDetails from "../pages/PaymentDetails"
 import ConfirmationPage from "../pages/Confirmation"
+import Gallery from "../pages/Gallery"
+import NotFound from "../pages/NotFound"
 
 const BaseRoutes = () => {
   return (
@@ -21,6 +23,8 @@ const BaseRoutes = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/promo" element={<PromoPage />} />
         <Route path="/confirmation" element={<ConfirmationPage />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

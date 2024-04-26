@@ -6,6 +6,7 @@ import Banner from '../components/Banner';
 import ScrollToTop from '../components/ScrollToTop';
 import MyAccordion from '../components/MyAccordion';
 import Footer from '../components/Footer';
+import { Link } from "react-router-dom";
 
 const About = () => {
 
@@ -22,7 +23,7 @@ const About = () => {
                 <h3 className='text-white text-6xl font-bold'>About Us</h3>
 
                 <div className='text-white text-xl'>
-                    <span>Home</span> <span className='mx-2'>|</span> <span className='text-secondary'>About</span>
+                    <Link to="/"><span>Home</span></Link><span className='mx-2'> |</span> <span className='text-secondary'>About</span>
                 </div>
             </div>
         </div>
@@ -51,7 +52,7 @@ const About = () => {
                     </ul>
 
                     <div className='mt-5'>
-                        <button className='px-5 py-2 rounded-md text-mydark bg-secondary hover:bg-mydark hover:text-white font-semibold text-lg'>Contact Us</button>
+                        <Link to="/contact" className='px-5 py-2 rounded-md text-mydark bg-secondary hover:bg-mydark hover:text-white font-semibold text-lg'>Contact Us</Link>
                     </div>
                 </Col>
 

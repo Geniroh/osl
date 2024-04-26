@@ -55,22 +55,22 @@ const Home = () => {
                 </div>
                 <Row className="mt-5" gutter={20}>
                     <Col xs={24} md={12}>
-                        <PromoCard img={'/img/offer_img01.jpg'} title={'Conference Room'} type={'Weekly'} size={'large'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={1} />
+                        <PromoCard img={'/img/offer_img01.jpg'} title={'Conference Room'} type={'weekly'} size={'large'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={1} pcode="ASED" />
                         
                     </Col>
                     <Col xs={24} md={12}>
                         <Row gutter={20}>
                             <Col xs={24} md={12} className="mb-3">
-                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Daily'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'daily'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode="ASED" />
                             </Col>
                             <Col xs={24} md={12} className="mb-3">
-                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode="BCDE" />
                             </Col>
                             <Col xs={24} md={12}>
-                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
                             </Col>
                             <Col xs={24} md={12}>
-                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'Weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
+                                <PromoCard img={'/img/offer_img04.jpg'} title={'Team Space for 4'} type={'weekly'} size={'small'} price={12000} endDate={'Nov 2023'} startDate={'Oct 2023'} key={2} pcode={null} />
                             </Col>
                         </Row>
                     </Col>

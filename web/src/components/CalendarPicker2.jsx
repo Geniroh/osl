@@ -6,15 +6,20 @@ import { BookingContext } from '../context/BookingContext';
 import { GoArrowSwitch } from "react-icons/go";
 import { calculateDays } from '../utils/function';
 import { message } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const CalendarPicker2 = () => {
-    const { setStartDate, setEndDate, startDate, endDate, promoDetails } = useContext(BookingContext);
+    const { setStartDate, setEndDate, startDate, endDate, promoDetails, setPromoDetails } = useContext(BookingContext);
 
     const [selectedStartDate, setSelectedStartDate] = useState(startDate || new Date());
     const [selectedEndDate, setSelectedEndDate] = useState();
     const [disableBtn, setDisableBtn] = useState(true);
     const navigate = useNavigate()
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const type = searchParams.get('type');
+    const code = searchParams.get('code');
 
     const handleselectedStartDateChange = (selectedDates) => {
         const selectedDate = selectedDates[0];
@@ -27,12 +32,11 @@ const CalendarPicker2 = () => {
         setEndDate(selectedDates[0])
         setSelectedEndDate(selectedDates[0])
 
-        checkCriteria(promoDetails.promoType, startDate, selectedDates[0])
+        checkCriteria(type, startDate, selectedDates[0])
     }
 
     const checkCriteria = (type, startDate, endDate) => {
-        console.log("here")
-        if(type == 'Daily') {
+        if(type == 'daily') {
             const days = calculateDays(startDate, endDate)
             if(days > 1) {
                 message.error("Please this promo is valid for a single day selection")
@@ -40,11 +44,11 @@ const CalendarPicker2 = () => {
             } 
 
             setDisableBtn(false)
-        } else if(type == 'Weekly') {
+        } else if(type == 'weekly') {
             const days = calculateDays(startDate, endDate)
 
             if (days < 7) {
-                message.error("Please you must select for more than a week to qualify")
+                message.error("Please you must select for at least a week to qualify for this promo")
                 return
             }
 
@@ -58,13 +62,18 @@ const CalendarPicker2 = () => {
         if(!startDate || !endDate) {
             message.error("Please you need to select a start and end date to proceed!")
         } else {
-            navigate(`/booking?pcode=${promoDetails.pcode}`,)
+            setPromoDetails(prev => ({
+                ...prev,
+                pcode: code,
+                promoType: type
+            }));
+            navigate('/booking',)
         }
     }
 
     useEffect(() => {
         setStartDate(selectedStartDate)
-    })
+    }, [])
 
     return (
         <>
@@ -113,7 +122,7 @@ const CalendarPicker2 = () => {
             <div className='mt-5 flex justify-end'>
                 <div className='flex gap-5'>
                     <div className='border border-secondary py-3 px-4 uppercase'>
-                        OSHGJHJK
+                        {code || ""}
                     </div>
                     <button className={`px-4 py-3 md:px-6 md:py-4 text-[16px] font-semibold ${ disableBtn ? 'bg-[#e4e4e4] text-[#D8D7D3] cursor-not-allowed' : 'bg-secondary text-mydark hover:bg-mydark hover:text-white'}  rounded-lg`} onClick={handleSelectSpots} disabled={disableBtn}>Select Spots</button>
                 </div>

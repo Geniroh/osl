@@ -3,4 +3,7 @@ export const resources = {
     reservationUrl: 'reservation',
     reservationCostUrl: 'reservation/cost', 
     paymentUrl: 'payment',
+    contactUrl: 'contact',
+    checkSpaceUrl: 'reservation/check',
+    promoUrl: 'promo',
 }

@@ -44,7 +44,7 @@ const login = async (req, res, next) => {
         httpOnly: true,
       })
       .status(200)
-      .json(user);
+      .json({ user, token});
   } catch (err) {
     next(err);
   }
@@ -52,11 +52,35 @@ const login = async (req, res, next) => {
 
 const logout = async (req,res,next) => {
     try {
-      res.clearCookie("access_token").redirect(`${process.env.ENDPOINT}`)
+      res.clearCookie("access_token");
+
+      res.status(200).json({ message: "Logout successful" });
     } catch (error) {
-        next(error)
+      next(error)
     }
 }
 
+const getUserInfo = async (req, res, next) => {
+    let token = req.headers.authorization;
+    
+    if (!token) {
+        return next(createError(401, 'Unauthorized: Access token not provided'));
+    }
 
-module.exports = { login, register, logout }
+    try {
+        if (token && token.startsWith("Bearer ")) {
+            token = token.slice(7);
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.id;
+
+        const user = await Auth.findById(userId)
+
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+};
+
+module.exports = { login, register, logout, getUserInfo }
+

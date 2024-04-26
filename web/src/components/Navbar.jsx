@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
-// import { BookingContext } from "../context/BookingContext";
 
 const Navbar = () => {
     const [isSticky, setIsSticky] = useState(false);
@@ -9,20 +8,6 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const sidebarRef = useRef(null);
     const location = useLocation();
-    // const navigate = useNavigate();
-    // const {setEndDate} = useContext(BookingContext);
-
-    // const handleBookNow = () => {
-    //     try {
-            
-    //         setEndDate(new Date())
-    //         navigate("/booking", {replace: true})
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
-
 
     useEffect(() => {
         setActivePage(location.pathname)
@@ -55,7 +40,7 @@ const Navbar = () => {
                         <li  className={`${activePage == '/about' ? 'text-secondary': 'text-white'} hover:text-secondary`}><Link to="/about">About</Link></li>
                         <li  className={`${activePage == '/contact' ? 'text-secondary': 'text-white'} hover:text-secondary`}><Link to="/contact">Contact</Link></li>
                         {
-                            (activePage == '/' || activePage =='/about' || activePage =='/contact') &&
+                            (activePage == '/' || activePage =='/about' || activePage =='/contact' || activePage == '/gallery') &&
 
                             // <button onClick={handleBookNow}><li className="px-4 py-3 bg-white text-[#2A2A2A] hover:bg-secondary cursor-pointer">Book Now!</li></button>
                             <Link to="/booking"><li className="px-4 py-3 bg-white text-[#2A2A2A] hover:bg-secondary cursor-pointer">Book Now!</li></Link>

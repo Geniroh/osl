@@ -2,18 +2,38 @@ import React, { useContext, useState, memo, useEffect } from 'react'
 import { FaRegCalendarDays, FaRegCircleCheck } from "react-icons/fa6";
 import CalendarPicker3 from './CalendarPicker3';
 import { BookingContext } from '../context/BookingContext';
-import { message } from 'antd';
+import { message, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const BookingCalendarSwitch = () => {
     const [tab, setTab] = useState(1)
     const navigate = useNavigate()
+    const [retrieveForm] = Form.useForm();
 
     const { setSpaceType, startDate, endDate } = useContext(BookingContext);
 
     const handleChange = (value) => {
         setSpaceType(value)
     };
+
+    const handleCheckSpots = async () => {
+        try{
+            const values = await retrieveForm.validateFields()
+
+            const { tx_ref } = values
+
+            if(tx_ref.length > 7) {
+                message.error("Please eneter a valid Booking Id")
+                return
+            }
+
+            navigate(`/confirmation?tx_ref=${tx_ref}&status=successful`)
+            // console.log(tx_ref)
+            
+        } catch {
+            message.error("Please fill in all required fields")
+        }
+    }
 
     const handleSelectSpots = () => {
         if(!startDate || !endDate) {
@@ -24,7 +44,7 @@ const BookingCalendarSwitch = () => {
     }
 
     useEffect(() => {
-        console.log("from BookCalendar")
+        
     }, [])
 
   return (
@@ -71,18 +91,31 @@ const BookingCalendarSwitch = () => {
 
             {
                 (tab == 2) && (
-                    <div className='p-5 md:p-10'>
-                    
+                    <Form
+                        form={retrieveForm}
+                        layout='vertical'
+                    >
+                        <div className='p-5 md:p-10'>
+                            <div className='w-full bg-[#F8F3E7] min-h-[100px] rounded-lg mt-5 px-4 py-4 flex flex-col gap-2 text-[14px]'>
+                                <Form.Item
+                                    label={<span  className='font-semibold mb-1'>Enter Invoice</span>}
+                                    name="tx_ref"
+                                    rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please enter your booking reference code',
+                                    },
+                                    ]}
+                                >
+                                    <Input className='py-2 px-4 rounded-none outline-none' />
+                                </Form.Item>
+                            </div>
 
-                        <div className='w-full bg-[#F8F3E7] min-h-[100px] rounded-lg mt-5 px-4 py-4 flex flex-col gap-2 text-[14px]'>
-                            <label htmlFor="">Enter Invoice</label>
-                            <input type="text" name="" id="" className='outline-none px-3 py-2 ' />
+                            <div className='flex justify-center mt-5 md:justify-end w-full'>
+                                <button className={`px-4 py-3 md:px-6 md:py-4 text-[16px] font-semibold bg-secondary text-mydark hover:bg-mydark hover:text-white rounded-lg`} onClick={handleCheckSpots} >Check Your Spot</button>
+                            </div>
                         </div>
-
-                        <div className='flex justify-center mt-5 md:justify-end w-full'>
-                            <button className={`px-4 py-3 md:px-6 md:py-4 text-[16px] font-semibold bg-secondary text-mydark hover:bg-mydark hover:text-white rounded-lg`} >Check Your Spot</button>
-                        </div>
-                </div>
+                    </Form>
                 )
             }
 

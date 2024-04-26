@@ -3,19 +3,14 @@ import Navbar from '../components/Navbar'
 import ScrollToTop from '../components/ScrollToTop';
 import Footer from '../components/Footer';
 import { Row, Col, Form, Input, Modal, message, Flex, Spin } from 'antd';
-import { validateEmail, validatePhoneNumber } from '../utils/function';
-// import Test2 from '../components/test2';
 import ProgressBar from '../components/ProgressBar';
-// import { IoArrowBackOutline, IoArrowForward } from "react-icons/io5";
-// import { CiUser } from "react-icons/ci";
-// import Slider from "react-slick";
 import { api } from '../api/api';
 import { resources } from '../api/resources';
 import SelectSpaceCard from '../components/Booking/SelectSpaceCard';
 import { BookingContext } from '../context/BookingContext';
 import CalendarPicker3 from '../components/CalendarPicker3';
 import dayjs from 'dayjs';
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 
 const Booking = () => {
     const [form] = Form.useForm()
@@ -23,16 +18,18 @@ const Booking = () => {
     const [deskSpace, setDeskSpace] = useState([]);
     const [selectDatesModal, setSelectDatesModal] = useState(false);
     const [loading, setLoading] = useState(false)
-    const location = useLocation();
+    // const location = useLocation();
+    const [proceedState, setProceedState] = useState(false)
 
-    const searchParams = new URLSearchParams(location.search);
-    const pcode = searchParams.get('pcode');
+    // const searchParams = new URLSearchParams(location.search);
+    // const pcode = searchParams.get('pcode');
 
-    const {spaceType, startDate, endDate, setSpaceType} = useContext(BookingContext)
+    const {spaceType, startDate, endDate, setSpaceType, promoDetails} = useContext(BookingContext)
 
     const checkIfDates = () => {
         if(!startDate || !endDate) {
             setSelectDatesModal(true)
+            setProceedState(true)
             return
         } else if(endDate && selectDatesModal) {
             return
@@ -50,6 +47,7 @@ const Booking = () => {
         }
 
         // message.success(`You are booking for ${dayjs(startDate).format('MMM D, YYYY') + " to " + dayjs(endDate).format('MMM D, YYYY')}`)
+        setProceedState(false)
         setSelectDatesModal(false)
     }
 
@@ -98,7 +96,7 @@ const Booking = () => {
                 <h3 className='text-white text-4xl md:text-6xl font-bold'>Orchid Springs Booking</h3>
 
                 <div className='text-white text-lg md:text-xl'>
-                    <span>Home</span> <span className='mx-2'>|</span> <span className='text-secondary'>Booking</span>
+                    <Link to="/"><span>Home</span></Link> <span className='mx-2'>|</span> <span className='text-secondary'>Booking</span>
                 </div>
             </div>
         </div>
@@ -117,7 +115,7 @@ const Booking = () => {
                         </div>
                     </Flex>
                 ) : (
-                    <SelectSpaceCard rooms={conferenceRooms} spaces={deskSpace} pcode={pcode} key={1} />
+                    <SelectSpaceCard rooms={conferenceRooms} spaces={deskSpace} pcode={promoDetails.pcode} key={1} btnClick={proceedState} />
                 )
             }
             {/* <SelectSpaceCard2 /> */}
